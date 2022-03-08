@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
             $user->setTelephone("012030405");
             $user->setRoles(array('ROLE_USER'))->setEmail($this->faker->email)
                 ->setPassword($this->hasher->hashPassword($user, '123
-                '))->setActif(true)->setCampus(array_rand($tabCampus));
+                '))->setActif(true)->setCampus($this->faker->randomElement($tabCampus));
             $this->manager->persist($user);
         }
 
@@ -66,5 +66,6 @@ class AppFixtures extends Fixture
             $campus->setNom($this->faker->city);
             $this->manager->persist($campus);
         }
+        $this->manager->flush();
     }
 }
