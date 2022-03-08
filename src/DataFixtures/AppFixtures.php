@@ -26,10 +26,10 @@ class AppFixtures extends Fixture
     {
         $this->manager = $manager;
         $campus = new Campus();
-        $campus->setNom('Niort');
+        $campus->setNom("ENI Ecole " . $this->faker->country);
         $manager->persist($campus);
         $manager->flush();
-        $this->addUsers($campus);
+        //$this->addUsers();
     }
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -39,36 +39,40 @@ class AppFixtures extends Fixture
         $this->hasher = $passwordHasher;
     }
 
-    public function addUSers(Campus $campus)
+    public function addUSers()
     {
 
         $campus = $this->manager->getRepository(Campus::class)->find(8);
         //$campus = $this->manager->getRepository(Campus::class)->findAll();
 
 
-        $user = new Participant();
-        $user->setNom("Baptiste")->setPrenom('Guillon')->setTelephone('0600000000')->setRoles(array('ROLE_ADMIN'))->setEmail("baba@gmail.com")
-            ->setPassword($this->hasher->hashPassword($user, '123456'))
-            ->setActif(true)->setCampus($campus);
-        $this->manager->persist($user);
+        // $user = new Participant();
+        // $user->setNom("Baptiste")->setPrenom('Guillon')->setTelephone('0600000000')->setRoles(array('ROLE_ADMIN'))->setEmail("baba@gmail.com")
+        //     ->setPassword($this->hasher->hashPassword($user, '123456'))
+        //     ->setActif(true)->setCampus($campus);
+        // $this->manager->persist($user);
 
-        // for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
 
-        //     $user = new Participant();
-        //     $user->setNom($this->faker->firstName)
-        //     $user->setPrenom($this->faker->firstname)
-        //     $user->setTelephone($this->faker->firstName)
-        //     $user->setNom($this->faker->firstName)
-        //         ->setPassword($this->hasher->hashPassword($user, '123
-        //         '));
+            $user = new Participant();
+            $user->setNom($this->faker->lastName);
+            $user->setPrenom($this->faker->firstname);
+            $user->setTelephone("012030405");
+            $user->setRoles(array('ROLE_ADMIN'))->setEmail($this->faker->email)
+                ->setPassword($this->hasher->hashPassword($user, '123
+                '))->setActif(true)->setCampus($campus);;
 
-        //     $this->manager->persist($user);
-        // }
+            $this->manager->persist($user);
+        }
 
         $this->manager->flush();
 
 
         //$users = $this->manager->getRepository(User::class)->findAll();
 
+    }
+
+    public function addCampus()
+    {
     }
 }
