@@ -24,12 +24,12 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $this->manager = $manager;
-        $campus = new Campus();
-        $campus->setNom('Niort');
-        $manager->persist($campus);
-        $manager->flush();
-        $this->addUsers($campus);
+         $this->manager = $manager;
+        // $campus = new Campus();
+        // $campus->setNom('Niort');
+        // $manager->persist($campus);
+        // $manager->flush();
+        $this->addUsers();
     }
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -39,10 +39,10 @@ class AppFixtures extends Fixture
         $this->hasher = $passwordHasher;
     }
 
-    public function addUSers(Campus $campus)
+    public function addUSers()
     {
 
-        $campus = $this->manager->getRepository(Campus::class)->find(8);
+        $campus = $this->manager->getRepository(Campus::class)->find(2);
         //$campus = $this->manager->getRepository(Campus::class)->findAll();
 
 
