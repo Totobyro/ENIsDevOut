@@ -4,8 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Campus;
 use App\Entity\Participant;
-use App\Entity\User;
-use App\Repository\CampusRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -26,10 +24,7 @@ class AppFixtures extends Fixture
     {
 
         $this->manager = $manager;
-        // $campus = new Campus();
-        // $campus->setNom("ENI Ecole " . $this->faker->country);
-        // $manager->persist($campus);
-        // $manager->flush();
+        $this->addCampus();
         $this->addUsers();
     }
 
@@ -43,26 +38,16 @@ class AppFixtures extends Fixture
     public function addUSers()
     {
 
-        $campus = $this->manager->getRepository(Campus::class)->find(2);
-        //$campus = $this->manager->getRepository(Campus::class)->findAll();
-
-
-        // $user = new Participant();
-        // $user->setNom("Malo")->setPrenom('Ford')->setTelephone('0600000000')->setRoles(array('ROLE_USER'))->setEmail("ford@gmail.com")
-        //     ->setPassword($this->hasher->hashPassword($user, '123456'))
-        //     ->setActif(true)->setCampus($campus);
-        // $this->manager->persist($user);
-
+        $tabCampus = $this->manager->getRepository(Campus::class)->findAll();
         for ($i = 0; $i < 10; $i++) {
 
             $user = new Participant();
             $user->setNom($this->faker->lastName);
             $user->setPrenom($this->faker->firstname);
             $user->setTelephone("012030405");
-            $user->setRoles(array('ROLE_ADMIN'))->setEmail($this->faker->email)
+            $user->setRoles(array('ROLE_USER'))->setEmail($this->faker->email)
                 ->setPassword($this->hasher->hashPassword($user, '123
-                '))->setActif(true)->setCampus($campus);;
-
+                '))->setActif(true)->setCampus(array_rand($tabCampus));
             $this->manager->persist($user);
         }
 
@@ -75,5 +60,11 @@ class AppFixtures extends Fixture
 
     public function addCampus()
     {
+
+        for ($i = 0; $i < 4; $i++) {
+            $campus = new Campus();
+            $campus->setNom($this->faker->city);
+            $this->manager->persist($campus);
+        }
     }
 }
