@@ -26,12 +26,11 @@ class AppFixtures extends Fixture
     {
 
         $this->manager = $manager;
-        $campus = new Campus();
-        $campus->setNom("ENI Ecole " . $this->faker->country);
-        $manager->persist($campus);
-        $manager->flush();
-        //$this->addUsers();
-        
+        // $campus = new Campus();
+        // $campus->setNom("ENI Ecole " . $this->faker->country);
+        // $manager->persist($campus);
+        // $manager->flush();
+        $this->addUsers();
     }
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -49,7 +48,7 @@ class AppFixtures extends Fixture
 
 
         // $user = new Participant();
-        // $user->setNom("Baptiste")->setPrenom('Guillon')->setTelephone('0600000000')->setRoles(array('ROLE_ADMIN'))->setEmail("baba@gmail.com")
+        // $user->setNom("Malo")->setPrenom('Ford')->setTelephone('0600000000')->setRoles(array('ROLE_USER'))->setEmail("ford@gmail.com")
         //     ->setPassword($this->hasher->hashPassword($user, '123456'))
         //     ->setActif(true)->setCampus($campus);
         // $this->manager->persist($user);
