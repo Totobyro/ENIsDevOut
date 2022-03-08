@@ -5,12 +5,41 @@
 {% endblock %}
 
 
+
 {% block body %}
 
 
  <!-- etape 1 -->
     <div class="container">
         <!-- etape 2 ouverture de ligne -->
+        <div class="row">
+             <div class="col-sm-8"></div>
+                <div class="col-sm-4">
+
+                <!-- Récupération de la date du jour à aligner display inline block -->
+                
+               <p id= "datedujour"> Date du jour  </p>   
+            <div id="current_date">    
+                       
+                <script>
+                    date = new Date();
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                    document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
+                </script>
+                            
+            </div>
+        </p>
+    </div>      
+</div>
+            <!-- Récupération  du User de la sessions en cours -->
+    <div class="row">
+     <div class="col-sm-8"></div>
+        <div class="col-sm-4" id="Participant"> Participant : {# {{ nom }} {{ prenom }} #}
+     </div>
+     </div>
+
         <div class="row">
             <!-- etape 3  -->
             <div class="col-12">
