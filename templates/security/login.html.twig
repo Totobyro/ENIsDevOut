@@ -1,6 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseLogin.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{% endblock %}
+
+
+{% block stylesheets %}       
+   
+    <link href="{{ asset ('style.css')}}" rel="stylesheet">   
+
+{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -35,8 +42,8 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+    <button class="btn btn-m btn-primary my-4" type="submit">
+        Se connecter
     </button>
 </form>
 {% endblock %}

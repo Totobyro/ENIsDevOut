@@ -64,10 +64,10 @@
 
                              <td>{{ s.nom}}</td>
                             <td>{{ s.dateHeureDebut|date('d-m-Y H:i') }}</td>
-                            <td>{{ s.duree}}</td>
                             <td>{{ s.dateLimiteInscription|date('d-m-Y') }}</td>
                             <td> / {{ s.nbInscriptionsMax}}</td>
                             <td>{{ s.etat.libelle}}</td>
+                            <td>{{ s.duree}}</td>
                             {# Ajouter seulement la 1ere lettre du prénom #}
                             <td>{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</td> 
                                 {# <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btn-success">
