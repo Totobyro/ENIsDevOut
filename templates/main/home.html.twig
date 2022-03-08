@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+
+{% block titre %}
+{% endblock %}
+
+
+{% block body %}
+
+
+ <!-- etape 1 -->
+    <div class="container">
+        <!-- etape 2 ouverture de ligne -->
+        <div class="row">
+            <!-- etape 3  -->
+            <div class="col-12">
+                <br>
+                <table class="table table-striped ">
+                    <thead>
+                        {# <tr class="bg-success"> #}
+                        <tr class="classementTableauRow">
+                            <th>Nom de la sortie</th>
+                            <th>Date de la sortie</th>
+                            <th>Clotûre</th>
+                            <th>Inscrit/place</th>
+                            <th>Etat</th>
+                            <th>Inscrit</th>
+                            <th>Organisateur</th>
+                            {# <th>Actions</th> #}
+                        </tr>
+                    </thead>
+                    <tbody class="classementTableauTbody">
+                            {% for s in tableauSortie %}
+                        <tr>                           
+
+                             <td>{{ s.nom}}</td>
+                            <td>{{ s.dateHeureDebut|date('d-m-Y H:i') }}</td>
+                            <td>{{ s.duree}}</td>
+                            <td>{{ s.dateLimiteInscription|date('d-m-Y') }}</td>
+                            <td> / {{ s.nbInscriptionsMax}}</td>
+                            <td>{{ s.etat.libelle}}</td>
+                            {# Ajouter seulement la 1ere lettre du prénom #}
+                            <td>{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</td> 
+                                {# <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btn-success">
+                                <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btnClassement">
+                                <i class="fa fa-eye" aria-hidden="true"></i> 
+                                </a>
+                            </td> #}
+                        </tr>
+                        {% endfor %}            
+                    </tbody>
+                </table>
+            </div>   
+        </div>
+    </div> 
+
+
+{% endblock %}
