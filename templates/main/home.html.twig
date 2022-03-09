@@ -154,7 +154,7 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </a>
                             </td> #}
-                          {# <td> {{s.user.Actions}} </td>  #} 
+                            <td><a href="{{ path('sortie',{'id' : s.id })}}">Modifier</a></td>
                         </tr>
                         {% endfor %}            
                     </tbody>

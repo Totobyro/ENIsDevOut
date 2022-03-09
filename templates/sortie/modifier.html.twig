@@ -11,26 +11,22 @@
 {% block body %}
 	<h1>{{ titre }}</h1>
 	<div class="container col-my">
-		<form onSubmit="return verif()" action="{{ path('participant_modifier', {'id' : app.user.id }) }}" method="post">
+		<form onSubmit="return verif()" action="{{ path('sortie_modifier', {'id' : sortie.id }) }}" method="post">
 
 			<div class="row">
 				<div class="col-4">
-					<label for="prenom">Prénom</label>
-					<input class="form-control" name="prenom" id='prenom' value='{{app.user.prenom}}'>
-				</div>
-				<div class="col-4">
 					<label for="nom">Nom</label>
-					<input class="form-control" name="nom" id="nom" value='{{app.user.nom}}'>
+					<input class="form-control" name="nom" id="nom" value='{{sortie.nom}}'>
 				</div>
 				<div class="col-4">
-					<label for="tel">Téléphone</label>
-					<input class="form-control" name="tel" id='tel' value='{{app.user.telephone}}'>
+					<label for="heureDebut">Heure de Début</label>
+					<input class="form-control" type="datetime-local" type="date" name="heureDebut" id="heureDebut" value="{{sortie.dateHeureDebut|date('d-m-Y H:i')}}">
 				</div>
-				<div class="col-4">
-					<label for="email">Email</label>
-					<input class="form-control" name="email" id='email' value='{{app.user.email}}'>
+				 <div class="col-4">
+					<label for="duree">Duree</label>
+					<input class="form-control" name="duree" id='duree' type="number" value='{{sort.duree}}'>
 				</div>
-				<div class="col-4">
+				{#<div class="col-4">
 					<label for="tel">Mot de Passe</label>
 					<input class="form-control" name="password" id='password'>
 				</div>
@@ -45,7 +41,7 @@
 							<option value={{cam.nom}}>{{cam.nom}}</option>
 						{% endfor %}
 					</select>
-				</div>
+				</div> #}
 			</div>
 			<div>
 				<a href="{{ path('home')}}" class="btn btn-danger" style="margin: 10px auto 10px;">

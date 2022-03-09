@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
-<<<<<<< Updated upstream
 use App\Form\NouvelleSortieType;
-=======
->>>>>>> Stashed changes
 use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManager;
@@ -67,7 +64,6 @@ class MainController extends AbstractController
     }
 
     /**
-<<<<<<< Updated upstream
      * @Route("/creersortie/", name="creersortie")
      * 
      */
@@ -82,7 +78,7 @@ class MainController extends AbstractController
          [ 'formulaire'=> $form->createView()]);
     }
 
-=======
+    /**
      * @Route("/{id}", name="app_sortie_show", methods={"GET"})
      */
     public function show(Sortie $sortie): Response
@@ -91,5 +87,4 @@ class MainController extends AbstractController
             'sortie' => $sortie,
         ]);
     }
->>>>>>> Stashed changes
 }
