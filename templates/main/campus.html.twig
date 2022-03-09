@@ -6,6 +6,36 @@
 {% endblock %}
 
 
+{% block stylesheets %}       
+   
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+
+	<!-- Custom styles for our template -->
+	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+	
+    <link href="{{ asset ('assets/css/bootstrap-theme.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/mainCampus2.css')}}" rel="stylesheet">
+
+	{% endblock %}
+
+
+{% block titrePhoto %}
+	
+<h1 class="lead">Campus</h1> 
+
+{% endblock %}
+
+
+	{% block header %}
+
+	<header id="headCampus">
+		<div class="container">
+			<div class="row">
+{% endblock %}
+
+
 {% block body %}
 <h1>{{ titre }}</h1>
 <p>

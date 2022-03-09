@@ -1,6 +1,6 @@
 /* Header */
-#head {
-  background: #181015 url(../images/campus.jpg) no-repeat;
+#headVille {
+  background: #181015 url(../images/ville.jpg) no-repeat;
   background-size: cover;
   min-height: 520px;
   text-align: center;
@@ -9,12 +9,12 @@
   font-family: "Open sans", Helvetica, Arial;
   font-weight: 300;
 }
-#head.secondary {
+#headVille.secondary {
   height: 100px;
   min-height: 100px;
   padding-top: 0px;
 }
-#head .lead {
+#headVille .lead {
   font-family: "Open sans", Helvetica, Arial;
   font-size: 54px;
   margin-bottom: 6px;
@@ -22,17 +22,17 @@
   line-height: 2.4em;
   font-weight: 400;
 }
-#head .tagline {
+#headVille .tagline {
   color: rgba(255, 255, 255, 0.75);
   margin-bottom: 25px;
 }
-#head .tagline a {
+#headVille .tagline a {
   color: #fff;
 }
-#head .btn {
+#headVille .btn {
   margin-bottom: 10px;
 }
-#head .btn-default {
+#headVille .btn-default {
   text-shadow: none;
   background: transparent;
   color: rgba(255, 255, 255, 0.5);
@@ -41,16 +41,16 @@
   box-shadow: inset 0px 0px 0px 3px rgba(255, 255, 255, 0.5);
   background: transparent;
 }
-#head .btn-default:hover,
-#head .btn-default:focus {
+#headVille .btn-default:hover,
+#headVille .btn-default:focus {
   color: rgba(255, 255, 255, 0.8);
   -webkit-box-shadow: inset 0px 0px 0px 3px rgba(255, 255, 255, 0.8);
   -moz-box-shadow: inset 0px 0px 0px 3px rgba(255, 255, 255, 0.8);
   box-shadow: inset 0px 0px 0px 3px rgba(255, 255, 255, 0.8);
   background: transparent;
 }
-#head .btn-default:active,
-#head .btn-default.active {
+#headVille .btn-default:active,
+#headVille .btn-default.active {
   color: #fff;
   -webkit-box-shadow: inset 0px 0px 0px 3px #fff;
   -moz-box-shadow: inset 0px 0px 0px 3px #fff;
@@ -59,17 +59,17 @@
 }
 
 @media (max-width: 768px) {
-  #head {
+  #headVille {
     min-height: 620px;
     /* padding-top: 160px; */
   }
-  #head .lead {
+  #headVille .lead {
     font-size: 34px;
   }
 }
 
 @media (min-width: 768px) {
-  #head {
+  #headVille {
     display: none;
   }
 }

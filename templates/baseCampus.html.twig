@@ -12,21 +12,10 @@
     </title>
 	<link rel="shortcut icon" href="assets/images/sepq.jpg">
 	
-    {% block stylesheets %}       
-   
 
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+{% block stylesheets %}       
 
-
-	<!-- Custom styles for our template -->
-	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
-	
-    <link href="{{ asset ('assets/css/bootstrap-theme.css')}}" rel="stylesheet">
-	<link href="{{ asset ('assets/css/mainCampus.css')}}" rel="stylesheet">
-
-
-	{% endblock %}
+{% endblock %}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
@@ -71,10 +60,17 @@
 	<!-- /.navbar -->
 
 	<!-- Header -->
-	<header id="head">
+	{% block header %}
+
+	{# <header id="head">
 		<div class="container">
-			<div class="row">
-				<h1 class="lead">CAMPUS</h1> 
+			<div class="row"> #}
+{% endblock %}
+
+
+{% block titrePhoto %}
+{% endblock %}
+
 				{# <h1 class="lead">ENI's Dev Out</h1>
 				<p class="tagline">WE ESCAPE : logiciel de sorties et loisirs pour les étudiants de l'<a href="https://www.eni-ecole.fr/" target="_blank">ENI</a></p> #}
 				 <br><br>

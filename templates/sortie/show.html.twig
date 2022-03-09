@@ -1,0 +1,77 @@
+{% extends 'baseCampus.html.twig' %}
+
+{% block title %}Sortie{% endblock %}
+
+
+{% block stylesheets %}       
+   
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+
+	<!-- Custom styles for our template -->
+	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+	
+    <link href="{{ asset ('assets/css/bootstrap-theme.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/mainSortie.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block titrePhoto %}
+	
+    <h1 class="lead">Sortie</h1> 
+
+{% endblock %}
+
+
+{% block header %}
+
+	<header id="headSortie">
+		<div class="container">
+			<div class="row">
+{% endblock %}
+
+
+{% block body %}
+    <h1>Afficher une sortie</h1>
+
+    <table class="table">
+        <tbody>
+            {# <tr>
+                <th>Id</th>
+                <td>{{ sortie.id }}</td>
+            </tr> #}
+            <tr>
+                <th>Nom de la sortie :</th>
+                <td>{{ sortie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Date et heure de la sortie :</th>
+                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date limite d'inscription :</th>
+                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de places :</th>
+                <td>{{ sortie.nbInscriptionsMax }}</td>
+            </tr>
+            <tr>
+                <th>Durée :</th>
+                <td>{{ sortie.duree }} minutes</td>
+            </tr>
+            <tr>
+                <th>Description et infos :</th>
+                <td>{{ sortie.infosSortie }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_sortie_index') }}">back to list</a>
+
+    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+
+    {{ include('sortie/_delete_form.html.twig') }} #}
+{% endblock %}

@@ -150,6 +150,7 @@ class Lieu
         return $this;
     }
 
+<<<<<<< Updated upstream
     
 public function __toString() {
 
@@ -157,4 +158,15 @@ return $this->nom;
 
 }
 
+=======
+
+    // /**
+    //  * toString
+    //  *@return string
+    //  */
+    // public function __toString()
+    // {
+    //     return $this->sorties;
+    // }
+>>>>>>> Stashed changes
 }

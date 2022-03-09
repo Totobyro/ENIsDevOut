@@ -1,8 +1,38 @@
-{% extends 'baseVille.html.twig' %}
+{% extends 'baseCampus.html.twig' %}
 
 
 {% block titre %}
 {{ titre }} | {{ parent() }}
+{% endblock %}
+
+
+{% block stylesheets %}       
+   
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+
+	<!-- Custom styles for our template -->
+	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+	
+    <link href="{{ asset ('assets/css/bootstrap-theme.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/mainVille2.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block titrePhoto %}
+	
+<h1 class="lead">Ville</h1> 
+
+{% endblock %}
+
+
+	{% block header %}
+
+	<header id="headVille">
+		<div class="container">
+			<div class="row">
 {% endblock %}
 
 
