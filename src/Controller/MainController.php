@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +29,13 @@ class MainController extends AbstractController
     /**
      * @Route("/monProfil/", name="monProfil")
      */
-    public function about(): Response
+    public function about(CampusRepository $repo): Response
     {
+        $tabCampus=$repo->findAll();
+
         return $this->render('main/monProfil.html.twig', [
             'titre' => 'Mon Profil',
+            'campus' => $tabCampus,
         ]);
     }
 
