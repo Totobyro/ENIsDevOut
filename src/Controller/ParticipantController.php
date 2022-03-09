@@ -34,6 +34,9 @@ class ParticipantController extends AbstractController
         $p->setEmail($req->get('email'));
         $p->setPassword(password_hash($req->get('password'), PASSWORD_DEFAULT));
         $p->setCampus($repo->findOneBy(array('nom'=>$req->get('campus'))));
+        if (password_verify($req->get('confirm'), $p->getPassword())) {
+            # code...
+        }
         $em->flush();
         return $this->redirectToRoute('home', []);
     }
