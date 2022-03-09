@@ -46,12 +46,22 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/service/", name="service")
+     * @Route("/campus/", name="campus")
      */
-    public function service(): Response
+    public function campus(): Response
     {
-        return $this->render('main/service.html.twig', [
-            'titre' => 'Page service',
+        return $this->render('main/campus.html.twig', [
+            'titre' => 'Page campus',
+        ]);
+    }
+
+    /**
+     * @Route("/ville/", name="ville")
+     */
+    public function ville(): Response
+    {
+        return $this->render('main/ville.html.twig', [
+            'titre' => 'Page ville',
         ]);
     }
 }
