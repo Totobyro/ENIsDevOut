@@ -1,9 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'front.html.twig' %}
 
 
 {% block titre %}
 {% endblock %}
 
+    {% block stylesheets %}  
+    
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+    <link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+
+	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/bootstrap-theme.css')}}" rel="stylesheet">
+    <link href="{{ asset ('assets/css/main6.css')}}" rel="stylesheet">
+    {% endblock %}
 
 
 {% block body %}
