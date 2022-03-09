@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
+use App\Form\NouvelleSortieType;
 use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -58,4 +62,20 @@ class MainController extends AbstractController
             'titre' => 'Page ville',
         ]);
     }
+
+    /**
+     * @Route("/creersortie/", name="creersortie")
+     * 
+     */
+
+    public function creerSortie(Sortie $s, Request $req): Response
+    {
+
+        $form = $this->createForm(NouvelleSortieType::class, $s);
+        $form->handleRequest($req);
+
+        return $this->render('main/creersortie.html.twig',
+         [ 'formulaire'=> $form->createView()]);
+    }
+
 }

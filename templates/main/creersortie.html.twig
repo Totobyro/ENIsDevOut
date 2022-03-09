@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+
+{% block titre %}
+Creer une nouvelle Sortie
+{% endblock %}
+
+
+{% block main %}
+
+{{ form_start(formulaire)}}
+{{ form_widget(formulaire)}}
+<button class="btn btn-info" type="submit">Ajouter</button>
+{{ form_end(formulaire)}}
+
+{% endblock %}

@@ -49,6 +49,7 @@
      </div>
 
      <!-- Zones de Filtres -->
+ {# <form action="{{ path('rechercher') }}" method="get" > #}
 <div id="ZoneFiltres">
     <div class="row">
             <h3> Filtrer les Sorties </h3>
@@ -108,11 +109,12 @@
 
         <div class="col-sm-3" id="zoneBtnRecherche">
             <div class="text-center">
-                <button type="button" class="btn btn-warning">Recherche</button>
+                <button type="submit" class="btn btn-warning">Recherche</button>
             </div>
         </div>
     </div>
 </div>
+{# </form> #}
 
         <div class="row">
             <!-- etape 3  -->
@@ -149,7 +151,7 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </a>
                             </td> #}
-                            {# <td> {{s.user.Actions}} </td> #}
+                          {# <td> {{s.user.Actions}} </td>  #} 
                         </tr>
                         {% endfor %}            
                     </tbody>
@@ -162,7 +164,8 @@
          <div class="row">
             <div class="d-grid gap-2 col-6 mx-auto">
                 <div class="text-center">
-                <button class="btn btn-success" type="button">Ajouter une sortie</button>
+                <a href="{{ path('creersortie')}}">
+                <button class="btn btn-success" type="button">  Créer une sortie </button> </a>
                 </div>
             </div>
          </div>
