@@ -276,3 +276,21 @@ img.pull-left {
 .membre {
   font-size: x-large;
 }
+
+#ZoneFiltre1 {
+
+  margin-left: 10px;
+  
+  }
+  
+  #ZoneFiltre2 {
+  
+  margin-left: 80px;
+  
+  }
+
+  #dateDuJour{
+
+    align-content: end;
+    display: flex;
+  }

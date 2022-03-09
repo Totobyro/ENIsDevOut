@@ -20,14 +20,14 @@
 
 
  <!-- etape 1 -->
-    <div class="container">
+    <div class="container-fluid">
         <!-- etape 2 ouverture de ligne -->
-        <div class="row" id="datedujour">
+        <div class="row">
             <div class="col-sm-10"></div> <!-- marge de 10 à gauche -->
-                <div class="col-sm-2">
+                <div class="col-sm-2" id="dateDuJour">
                 <!-- Récupération de la date du jour à aligner display inline block -->
 
-                <p id= "datedujour"> Date du jour  </p>   
+                <p id= "datedujour"> Date du jour : </p>   
                     <div id="current_date">    
                        
                         <script>
@@ -44,7 +44,7 @@
             <!-- Récupération  du User de la sessions en cours Pour affichage du nom -->
     <div class="row">
      <div class="col-sm-10"></div>
-        <div class="col-sm-2" id="Participant"> Participant : {# {{ nom }} {{ prenom }} INLINE BLOCK #}
+        <div class="col-sm-2" id="Participant"> Participant : {{ app.user.nom }} {{ app.user.prenom }} 
      </div>
      </div>
 
@@ -81,7 +81,7 @@
         </div>
 
             <!-- Zone Check box Seconde colonne -->
-        <div class="col-sm-4" id="Zone2Filtre">
+        <div class="col-sm-4" id="ZoneFiltre2">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1">
                 <label class="form-check-label" for="flexSwitchCheckDefault"> Sorties dont je suis l'organisateur/trice</label>
@@ -106,8 +106,10 @@
 
         <!-- Zone Boutton Recherche -->
 
-        <div class="col-sm-4" id="zoneBtnRecherche">
-        <button type="button" class="btn btn-warning">Recherche</button>
+        <div class="col-sm-3" id="zoneBtnRecherche">
+            <div class="text-center">
+                <button type="button" class="btn btn-warning">Recherche</button>
+            </div>
         </div>
     </div>
 </div>
@@ -127,7 +129,7 @@
                             <th>Etat</th>
                             <th>Inscrit</th>
                             <th>Organisateur</th>
-                            {# <th>Actions</th> #}
+                            <th>Actions</th> 
                         </tr>
                     </thead>
                     <tbody class="classementTableauTbody">
@@ -147,6 +149,7 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </a>
                             </td> #}
+                            <td> {{s.user.Actions}} </td>
                         </tr>
                         {% endfor %}            
                     </tbody>
