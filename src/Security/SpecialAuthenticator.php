@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Participant;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +54,24 @@ class SpecialAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse($this->urlGenerator->generate('home'));
         // throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
     }
+
+    // public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    // {
+    //     $user = $token->getUser();
+    //     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+    //         return new RedirectResponse($targetPath);
+    //     }
+
+    //     if ($user->getRoles() == ['ROLE_ADMIN']) {
+    //         return new RedirectResponse($this->urlGenerator->generate('home'));
+    //     }
+    //     if ($user->getRoles() == "['ROLE_USER']") {
+    //         return new RedirectResponse($this->urlGenerator->generate('ville'));
+    //     }
+
+    //     return new RedirectResponse($this->urlGenerator->generate('app_login'));
+    // }
+
 
     protected function getLoginUrl(Request $request): string
     {

@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
             $user->setPrenom($this->faker->firstname);
             $user->setTelephone("0102030405");
             $user->setRoles(array('ROLE_ADMIN'))->setEmail($this->faker->email)
-                ->setPassword($this->hasher->hashPassword($user, '123'))->setActif(true)->setCampus($this->faker->randomElement($tabCampus));
+                ->setPassword($this->hasher->hashPassword($user, '123456'))->setActif(true)->setCampus($this->faker->randomElement($tabCampus));
             $this->manager->persist($user);
         }
 
@@ -87,7 +87,8 @@ class AppFixtures extends Fixture
         $this->manager->flush();
     }
 
-    public function addLieux(){
+    public function addLieux()
+    {
         $tabVilles = $this->manager->getRepository(Ville::class)->findAll();
 
         for ($i = 0; $i < 7; $i++) {
@@ -100,7 +101,8 @@ class AppFixtures extends Fixture
         $this->manager->flush();
     }
 
-    public function addEtats() {
+    public function addEtats()
+    {
         $etat = new Etat();
         $etat->setLibelle("Crée");
         $this->manager->persist($etat);
@@ -119,11 +121,12 @@ class AppFixtures extends Fixture
         $etat = new Etat();
         $etat->setLibelle("Annulée");
         $this->manager->persist($etat);
-        
+
         $this->manager->flush();
     }
 
-    public function addSorties(){
+    public function addSorties()
+    {
         $tabLieux = $this->manager->getRepository(Lieu::class)->findAll();
         $tabEtats = $this->manager->getRepository(Etat::class)->findAll();
         $tabCampus = $this->manager->getRepository(Campus::class)->findAll();
@@ -145,5 +148,4 @@ class AppFixtures extends Fixture
         }
         $this->manager->flush();
     }
-
 }
