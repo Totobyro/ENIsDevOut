@@ -51,7 +51,7 @@ class SortieController extends AbstractController
         //     'sortie' => $sortie,
         // ]);
 
-        $form = $this->createForm(NouvelleSortieType::class, $sortie);
+        $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -38,13 +38,40 @@ Modifier une Sortie
 			</div>
 			<div class="col-4">
 				{{ form_row(form.lieu) }}
-			</div>		
-			<button class="btn btn-success" type="submit">Enregistrer modif</button>
+			</div>	
+
+			{#<div class="col-4">
+				{{ form_row(form.lieu.latitude) }}
+			</div>	
+			<div class="col-4">
+				{{ form_row(form.longitude) }}
+			</div>	 #}
+
+
+<div class="container col-my">
+<br><br>
+			<button class="btn btn-info" type="submit">
+				Enregistrer
+			</button>
+
+			<button class="btn btn-success" type="submit">
+				Publier la sortie (Enregistrer)
+			</button>
+
+			<button class="btn btn-warning" type="submit">
+				Supprimer la sortie
+			</button>
+
 			<a href="{{ path('home')}}">
-				<button class="btn btn-danger">Retour</button>
+				<button class="btn btn-danger">
+					Annuler
+				</button>
 			</a>
+</div>	
+
 		</div>
-		{{ form_end(form)}}
+		{{ form_end(form)}}	
+		
 </div>
 
 {% endblock %}
