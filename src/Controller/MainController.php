@@ -68,10 +68,10 @@ class MainController extends AbstractController
      * 
      */
 
-    public function creerSortie(Sortie $s, Request $req): Response
+    public function creerSortie(Request $req): Response
     {
 
-        $form = $this->createForm(NouvelleSortieType::class, $s);
+        $form = $this->createForm(NouvelleSortieType::class);
         $form->handleRequest($req);
 
         return $this->render(
