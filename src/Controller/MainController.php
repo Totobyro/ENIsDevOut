@@ -13,13 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-/**
- * @Route("/admin")
- */
+// /**
+//  * @Route("/profile")
+//  */
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/profile/", name="home")
      */
     public function home(SortieRepository $repo): Response
     {
@@ -31,7 +31,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/monProfil/", name="monProfil")
+     * @Route("/profile/monProfil/", name="monProfil")
      */
     public function about(CampusRepository $repo): Response
     {
@@ -44,7 +44,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/campus/", name="campus")
+     * @Route("/admin/campus/", name="campus")
      */
     public function campus(): Response
     {
@@ -54,7 +54,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/ville/", name="ville")
+     * @Route("/admin/ville/", name="ville")
      */
     public function ville(): Response
     {

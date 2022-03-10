@@ -14,8 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
- * @Route("/sortie")
+ * @Route("profile/sortie")
  */
 class SortieController extends AbstractController
 {
@@ -28,6 +29,17 @@ class SortieController extends AbstractController
             'sorties' => $sortieRepository->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="afficher_sortie", methods={"GET"})
+     */
+    public function afficher_sortie(Sortie $sortie): Response
+    {
+        return $this->render('sortie/afficher.html.twig', [
+            'sortie' => $sortie,
+        ]);
+    }
+
 
     /**
      * @Route("/sortie/{id}", name="sortie")
@@ -60,46 +72,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="app_sortie_show", methods={"GET"})
-     */
-    public function show(Sortie $sortie): Response
-    {
-        return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
-        ]);
-    }
 
-    /**
-     * @Route("/{id}/edit", name="app_sortie_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
-    {
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sortieRepository->add($sortie);
-            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('sortie/edit.html.twig', [
-            'sortie' => $sortie,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_sortie_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $sortie->getId(), $request->request->get('_token'))) {
-            $sortieRepository->remove($sortie);
-        }
-
-        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-    }
     /** 
      * @Route("/modifierSortie/{id}", name="sortie_modifier")
      */
@@ -119,4 +92,23 @@ class SortieController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('home', []);
     }
+
+    // /**
+    //  * @Route("/{id}/edit", name="app_sortie_edit", methods={"GET", "POST"})
+    //  */
+    // public function edit(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
+    // {
+    //     $form = $this->createForm(SortieType::class, $sortie);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $sortieRepository->add($sortie);
+    //         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    //     }
+
+    //     return $this->renderForm('sortie/edit.html.twig', [
+    //         'sortie' => $sortie,
+    //         'form' => $form,
+    //     ]);
+    // }
 }

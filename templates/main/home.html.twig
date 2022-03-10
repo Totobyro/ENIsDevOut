@@ -147,7 +147,7 @@
                             {# Ajouter seulement la 1ere lettre du prénom #}
                             <td>{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</td> 
                             <td>
-                                <a href="{{ path('app_sortie_show', {'id': s.id}) }}">afficher</a>
+                                <a href="{{ path('afficher_sortie', {'id': s.id}) }}">afficher</a>
                             </td>
                                 {# <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btn-success">
                                 <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btnClassement">
