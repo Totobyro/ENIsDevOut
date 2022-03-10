@@ -6,8 +6,11 @@ use App\Entity\Campus;
 use App\Entity\Participant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ParticipantType extends AbstractType
 {
@@ -18,7 +21,15 @@ class ParticipantType extends AbstractType
             ->add('nom')
             ->add('email')
             ->add('telephone')
-            ->add('password')
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'constraints' => array(
+                  new NotBlank()
+                  ),
+                'first_options'  => array('label' => 'Mot De Passe'),
+                'second_options' => array('label' => 'Confirmation Mot De Passe'),
+                ))
             ->add('campus',EntityType::class, ['class'=> Campus::class, 'choice_label'=>'nom'])
         ;
     }

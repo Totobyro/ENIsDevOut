@@ -12,11 +12,30 @@
 	<h1>{{ titre }}</h1>
 	<div class="container col-my">
 		{{ form_start(participantForm)}}
-		{{ form_widget(participantForm)}}
-		<button class="btn btn-info" type="submit">Modifier</button>
-		<a href="{{ path('home')}}">
-			<button class="btn btn-danger">Retour</button>
-		</a>
+		<div class="row">
+			<div class="col-4">
+				{{ form_row(participantForm.prenom) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(participantForm.nom) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(participantForm.telephone) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(participantForm.email) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(participantForm.password) }}
+			</div>
+			<div class="col-4">
+				{{ form_row(participantForm.campus) }}
+			</div>
+			<button class="btn btn-info" type="submit">Modifier</button>
+			<a href="{{ path('home')}}">
+				<button class="btn btn-danger">Retour</button>
+			</a>
+		</div>
 		{{ form_end(participantForm)}}
 	</div>
 

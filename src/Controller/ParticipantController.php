@@ -24,7 +24,7 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/admin/modifier/{id}", name="participant_modifier")
+     * @Route("/modifier/{id}", name="participant_modifier")
      */
     public function modifierParticipant(CampusRepository $repo, Request $req, EntityManagerInterface $em, Participant $p): Response
     {
