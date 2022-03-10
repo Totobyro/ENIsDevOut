@@ -53,56 +53,41 @@
 <div id="ZoneFiltres">
     <div class="row">
             <h3> Filtrer les Sorties </h3>
+            {{ form_start(filtre)}}
         <div class="col-sm-4" id="Zone1Filtre">
             <div id="Select">
-                Campus <select name="campusSelect">
-                <option selected="selected" value="Rennes">Rennes</option>
-                <option value="Nantes">Nantes</option>
-                </select>
+                {{ form_row(filtre.campus) }}
             </div>
 
             <!-- Zone de recherche à aligner -->
             <div id="rechercheTextuelle"> 
-               Le nom de la recherche contient :  <input type="search" id="inputRecherche" name="q">
+               {{ form_row(filtre.recherche) }}
             </div>
 
             <!-- zone de recherche par date à aligner -->
             <div id="rechercheDate">
-                <label for="start">Entre</label>
-                   <input data-provide="datepicker"
-                        value="09/03/2022"
-                        min="2018-01-01" max="2018-12-31">
-                
-                <label for="start">Et : </label>
-                <input data-provide="datepicker"
-                value="10/03/2022"
-                min="09/03/2022" max="31/12/2099">
-
+                {{ form_row(filtre.dateDebut) }}
+                {{ form_row(filtre.dateFin) }}
             </div>
         </div>
 
             <!-- Zone Check box Seconde colonne -->
         <div class="col-sm-4" id="ZoneFiltre2">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1">
-                <label class="form-check-label" for="flexSwitchCheckDefault"> Sorties dont je suis l'organisateur/trice</label>
+                {{ form_row(filtre.sortieOrganisateur) }}
             </div>
 
              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Sorties auxquelles je suis inscrit/e</label>
+               {{ form_row(filtre.sortieInscrit) }}
             </div>
 
              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault3">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Sorties auxquelles je ne suis pas inscrit/e </label>
+                {{ form_row(filtre.sortieNonInscrit) }}
             </div>
 
              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault4">
-                <label class="form-check-label" for="flexSwitchCheckDefault"> Sorties passées </label>
+                {{ form_row(filtre.sortiePasse) }}
             </div>
-
         </div>
 
         <!-- Zone Boutton Recherche -->
@@ -112,6 +97,7 @@
                 <button type="submit" class="btn btn-warning">Recherche</button>
             </div>
         </div>
+        {{ form_end(filtre)}}
     </div>
 </div>
 {# </form> #}
@@ -141,7 +127,7 @@
                              <td>{{ s.nom}}</td>
                             <td>{{ s.dateHeureDebut|date('d-m-Y H:i') }}</td>
                             <td>{{ s.dateLimiteInscription|date('d-m-Y') }}</td>
-                            <td> / {{ s.nbInscriptionsMax}}</td>
+                            <td> {{ s.nbInscriptionsMax}}</td>
                             <td>{{ s.etat.libelle}}</td>
                             <td>{{ s.duree}}</td>
                             {# Ajouter seulement la 1ere lettre du prénom #}

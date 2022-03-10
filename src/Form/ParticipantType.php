@@ -24,9 +24,9 @@ class ParticipantType extends AbstractType
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne correspondent pas, veuillez écrire le même',
-                'constraints' => array(
-                  new NotBlank()
-                  ),
+                'required' => false,
+                'mapped'=>false,
+                'options' => ['attr' => ['class' => 'password-field']],
                 'first_options'  => array('label' => 'Mot De Passe'),
                 'second_options' => array('label' => 'Confirmation Mot De Passe'),
                 ))

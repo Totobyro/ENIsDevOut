@@ -7,14 +7,51 @@ Creer une nouvelle Sortie
 
 
 {% block body %}
+	<div class="container col-my">
+		{{ form_start(formulaire)}}
+		<div class="row">
+			<div class="col-6">
+				{{ form_row(formulaire.nom) }}
+			</div>
+			<div class="col-6">
+				{{ form_row(formulaire.campus) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				{{ form_row(formulaire.dateHeureDebut) }}
+			</div>
+			<div class="col-6">
+				{{ form_row(formulaire.lieu) }}
+			</div>
+		</div>
 
-{{ form_start(formulaire)}}
-{{ form_widget(formulaire)}}
+		<div class="row">
+			<div class="col-6">
+				{{ form_row(formulaire.dateLimiteInscription) }}
+			</div>
+			
+			<div class="col-6">
+				{{ form_row(formulaire.nbInscriptionsMax) }}
+			</div>
 
-{{ form_end(formulaire)}}
-
+		</div>
+		<div class="row">
+			<div class="col-6">
+				{{ form_row(formulaire.duree) }}
+			</div>
+			<div class="col-6">
+				{{ form_row(formulaire.infosSortie) }}
+			</div>
+		</div>
+            
+           
+		{{ form_end(formulaire)}}
+	
+</div>
 <a href="{{ path('home')}}">
 			<button class="btn btn-danger">Retour</button>
 		</a>
+    
 
 {% endblock %}
