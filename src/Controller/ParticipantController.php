@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Form\ParticipantType;
 use App\Repository\CampusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,16 +29,13 @@ class ParticipantController extends AbstractController
     public function modifierParticipant(CampusRepository $repo, Request $req, EntityManagerInterface $em, Participant $p): Response
     {
 
-        $p->setPrenom($req->get('prenom'));
-        $p->setNom($req->get('nom'));
-        $p->setTelephone($req->get('tel'));
-        $p->setEmail($req->get('email'));
-        $p->setPassword(password_hash($req->get('password'), PASSWORD_DEFAULT));
-        $p->setCampus($repo->findOneBy(array('nom'=>$req->get('campus'))));
-        if (password_verify($req->get('confirm'), $p->getPassword())) {
-            # code...
+        $form=$this->createForm(ParticipantType::class,$p);
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('home', []);
         }
-        $em->flush();
-        return $this->redirectToRoute('home', []);
     }
+
+    
 }

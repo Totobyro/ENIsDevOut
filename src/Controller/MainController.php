@@ -79,4 +79,14 @@ class MainController extends AbstractController
             ['formulaire' => $form->createView()]
         );
     }
+
+    /**
+     * @Route("/{id}", name="app_sortie_show", methods={"GET"})
+     */
+    public function show(Sortie $sortie): Response
+    {
+        return $this->render('sortie/show.html.twig', [
+            'sortie' => $sortie,
+        ]);
+    }
 }
