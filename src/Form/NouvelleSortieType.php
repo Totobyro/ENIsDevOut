@@ -5,10 +5,8 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
-use Doctrine\DBAL\Types\FloatType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\Factory\Cache\ChoiceLabel;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,7 +28,9 @@ class NouvelleSortieType extends AbstractType
             ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom' ])
 
             //Bouttons ENREGISTRER / 
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+            //Boutton Publier
+            ->add('publish', SubmitType::class, ['label' => 'Publier La Sortie'])
 
             // ->add('latitude')
             // ->add('longitude')

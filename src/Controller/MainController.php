@@ -2,14 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\NouvelleSortieType;
-use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
-use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,32 +56,46 @@ class MainController extends AbstractController
      * 
      */
 
-    public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository$repoEtat, ParticipantRepository $repoParticipant, UserInterface $user): Response
+    public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository$repoEtat, UserInterface $user): Response
     {
         $sortie = new Sortie();
         $form = $this->createForm(NouvelleSortieType::class, $sortie);
 
         $form->handleRequest($req);
        
-        if ($form->isSubmitted()) {
+        if ($form->get('save')->isClicked()) {
+        
+            // set etat à l'id 1 -> Sortie crée (Enregistrée)
+            $sortie->setEtat($repoEtat->find(1));
+            //set l'id d'oragnisateur à l'id du current
+            $sortie->setOrganisateur($user);
 
-            // set etat à l'id 2 -> Sortie Ouverte
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+
+        } else {
+            if($form->get('publish')->isClicked()){
+                      // set etat à l'id 2 -> Sortie crée (Publiée)
             $sortie->setEtat($repoEtat->find(2));
             //set l'id d'oragnisateur à l'id du current
             $sortie->setOrganisateur($user);
 
             $em->persist($sortie);
             $em->flush();
+
             return $this->redirectToRoute('home');
+
+            }
+            
         }
-
-        
-
         return $this->render(
             'main/creersortie.html.twig',
             ['formulaire' => $form->createView()]
         );
-    }
+        }
+    
 
     /**
      * @Route("/{id}", name="app_sortie_show", methods={"GET"})
@@ -96,4 +106,5 @@ class MainController extends AbstractController
             'sortie' => $sortie,
         ]);
     }
+
 }
