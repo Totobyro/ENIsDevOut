@@ -33,8 +33,10 @@ class MainController extends AbstractController
 
         return $this->render(
             'main/home.html.twig',
-            ['tableauSortie' => $tableauSortie,
-            'filtre' => $formFiltre->createView()]
+            [
+                'tableauSortie' => $tableauSortie,
+                'filtre' => $formFiltre->createView()
+            ]
         );
     }
 
@@ -95,22 +97,11 @@ class MainController extends AbstractController
 
             return $this->redirectToRoute('home');
         } else {
-<<<<<<< HEAD
             if ($form->get('publish')->isClicked()) {
                 // set etat à l'id 2 -> Sortie crée (Publiée)
                 $sortie->setEtat($repoEtat->find(2));
                 //set l'id d'oragnisateur à l'id du current
                 $sortie->setOrganisateur($user);
-=======
-            if($form->get('publish')->isClicked()){
-            // set etat à l'id 2 -> Sortie crée (Publiée)
-            $sortie->setEtat($repoEtat->find(2));
-            //set l'id d'oragnisateur à l'id du current
-            $sortie->setOrganisateur($user);
-
-            $em->persist($sortie);
-            $em->flush();
->>>>>>> 7eef1b78cf17063b85b3feccd1515b20ed740a96
 
                 $em->persist($sortie);
                 $em->flush();
