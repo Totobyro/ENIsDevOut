@@ -18,6 +18,11 @@ class Filtre
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity=Campus::class, cascade={"persist", "remove"})
+     */
+    private $campus;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $recherche;
@@ -50,16 +55,23 @@ class Filtre
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $sortiePassé;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Campus::class, cascade={"persist", "remove"})
-     */
-    private $campus;
+    private $sortiePasse;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
     }
 
     public function getRecherche(): ?string
@@ -134,26 +146,14 @@ class Filtre
         return $this;
     }
 
-    public function getSortiePassé(): ?bool
+    public function getSortiePasse(): ?bool
     {
-        return $this->sortiePassé;
+        return $this->sortiePasse;
     }
 
-    public function setSortiePassé(?bool $sortiePassé): self
+    public function setSortiePasse(?bool $sortiePasse): self
     {
-        $this->sortiePassé = $sortiePassé;
-
-        return $this;
-    }
-
-    public function getCampus(): ?Campus
-    {
-        return $this->campus;
-    }
-
-    public function setCampus(?Campus $campus): self
-    {
-        $this->campus = $campus;
+        $this->sortiePasse = $sortiePasse;
 
         return $this;
     }

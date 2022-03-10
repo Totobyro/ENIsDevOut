@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Filtre;
 use App\Entity\Sortie;
+use App\Form\FiltreType;
 use App\Form\NouvelleSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -21,13 +23,19 @@ class MainController extends AbstractController
     /**
      * @Route("/profile/", name="home")
      */
-    public function home(SortieRepository $repo): Response
+    public function home(Request $req, SortieRepository $repo): Response
     {
         $tableauSortie = $repo->findAll();
 
-        return $this->render('main/home.html.twig', [
-            'tableauSortie' => $tableauSortie,
-        ]);
+        $filtre = new Filtre();
+        $formFiltre = $this->createForm(FiltreType::class, $filtre);
+        $formFiltre->handleRequest($req);
+
+        return $this->render(
+            'main/home.html.twig',
+            ['tableauSortie' => $tableauSortie,
+            'filtre' => $formFiltre->createView()]
+        );
     }
 
 

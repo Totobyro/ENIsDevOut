@@ -32,6 +32,9 @@ class ParticipantController extends AbstractController
         $form = $this->createForm(ParticipantType::class, $p);
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form["password"]->getData()=="") {
+                $p->setPassword($p->getPassword());
+            }
             $em->flush();
             return $this->redirectToRoute('home');
         }
