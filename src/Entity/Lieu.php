@@ -152,6 +152,7 @@ class Lieu
 
     public function __toString() {
         
+        
 
     }
     
