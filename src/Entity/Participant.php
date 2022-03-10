@@ -24,7 +24,11 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+<<<<<<< HEAD
      * @Assert\Email()
+=======
+     * 
+>>>>>>> 85f829dadaafcfdca5fa27ca23c90a63ee914e68
      */
     private $email;
 
