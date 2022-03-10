@@ -77,7 +77,7 @@ class MainController extends AbstractController
 
         } else {
             if($form->get('publish')->isClicked()){
-                      // set etat à l'id 2 -> Sortie crée (Publiée)
+            // set etat à l'id 2 -> Sortie crée (Publiée)
             $sortie->setEtat($repoEtat->find(2));
             //set l'id d'oragnisateur à l'id du current
             $sortie->setOrganisateur($user);

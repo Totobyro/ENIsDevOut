@@ -32,12 +32,6 @@ class NouvelleSortieType extends AbstractType
             //Boutton Publier
             ->add('publish', SubmitType::class, ['label' => 'Publier La Sortie'])
 
-            // ->add('latitude')
-            // ->add('longitude')
-            // ->add('etat')
-            // ->add('campus')
-            // ->add('organisateur')
-            // ->add('participants')
 
         ;
     }
