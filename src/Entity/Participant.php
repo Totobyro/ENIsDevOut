@@ -46,6 +46,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min="5", minMessage="Must be greater than 5 characters")
      */
     private $prenom;
 
