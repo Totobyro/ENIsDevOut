@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\FloatType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Factory\Cache\ChoiceLabel;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,6 +28,9 @@ class NouvelleSortieType extends AbstractType
 
             // Le campus doit être récupéré par rapport au User
             ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom' ])
+
+            //Bouttons ENREGISTRER / 
+            ->add('save', SubmitType::class, ['label' => 'Create Task'])
 
             // ->add('latitude')
             // ->add('longitude')
