@@ -46,7 +46,7 @@
 						<a href="{{ path('home')}}">Accueil</a><b class="caret"></b></a>
 					</li>
 					<li class="dropdown">
-						<a href="{{ path('monProfil')}}">Mon profil</a>
+						<a href="{{ path('participant_modifier',{id:app.user.id })}}">Mon profil</a>
 					</li>
 					<li class="dropdown">
 						<a class="btn" href="{{ path ('app_login') }}">DECONNEXION</a><b class="caret"></b></a>

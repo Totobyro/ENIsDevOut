@@ -11,62 +11,13 @@
 {% block body %}
 	<h1>{{ titre }}</h1>
 	<div class="container col-my">
-		<form onSubmit="return verif()" action="{{ path('participant_modifier', {'id' : app.user.id }) }}" method="post">
-
-			<div class="row">
-				<div class="col-4">
-					<label for="prenom">Prénom</label>
-					<input class="form-control" name="prenom" id='prenom' value='{{app.user.prenom}}'>
-				</div>
-				<div class="col-4">
-					<label for="nom">Nom</label>
-					<input class="form-control" name="nom" id="nom" value='{{app.user.nom}}'>
-				</div>
-				<div class="col-4">
-					<label for="tel">Téléphone</label>
-					<input class="form-control" name="tel" id='tel' value='{{app.user.telephone}}'>
-				</div>
-				<div class="col-4">
-					<label for="email">Email</label>
-					<input class="form-control" name="email" id='email' value='{{app.user.email}}'>
-				</div>
-				<div class="col-4">
-					<label for="tel">Mot de Passe</label>
-					<input class="form-control" name="password" id='password'>
-				</div>
-				<div class="col-4">
-					<label for="tel">Confirmer Mot de Passe</label>
-					<input class="form-control" name="confirm" id='confirm'>
-				</div>
-				<div class="col-4">
-					<label for="campus">Campus</label>
-					<select name="campus" id="campus">
-						{% for cam in campus %}
-							<option value={{cam.nom}}>{{cam.nom}}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div>
-				<a href="{{ path('home')}}" class="btn btn-danger" style="margin: 10px auto 10px;">
-					<i class="fa fa-arrow-circle-left"></i>
-				</a>
-				<button class="btn btn-info" type="submit" style="margin: 10px 10px 10px;">
-					<i class="fa fa-file-text-o"></i>
-				</button>
-			</div>
-		</div>
-	</form>
-    <script>
-	function verif(){
-	    var a = document.getElementById("password").value;
-        var b = document.getElementById("confirm").value;
-            if (a!=b) {
-               alert("Passwords do no match");
-               return false;
-            }
-    </script>
+		{{ form_start(participantForm)}}
+		{{ form_widget(participantForm)}}
+		<button class="btn btn-info" type="submit">Modifier</button>
+		<a href="{{ path('home')}}">
+			<button class="btn btn-danger">Retour</button>
+		</a>
+		{{ form_end(participantForm)}}
+	</div>
 
 {% endblock %}
-
-

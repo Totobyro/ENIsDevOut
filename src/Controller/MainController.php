@@ -30,18 +30,27 @@ class MainController extends AbstractController
         ]);
     }
 
+<<<<<<< Updated upstream
     /**
      * @Route("/profile/monProfil/", name="monProfil")
      */
     public function about(CampusRepository $repo): Response
     {
         $tabCampus = $repo->findAll();
+=======
+    // /**
+    //  * @Route("/monProfil/", name="monProfil")
+    //  */
+    // public function about(CampusRepository $repo): Response
+    // {
+    //     $tabCampus = $repo->findAll();
+>>>>>>> Stashed changes
 
-        return $this->render('main/monProfil.html.twig', [
-            'titre' => 'Mon Profil',
-            'campus' => $tabCampus,
-        ]);
-    }
+    //     return $this->render('main/monProfil.html.twig', [
+    //         'titre' => 'Mon Profil',
+    //         'campus' => $tabCampus,
+    //     ]);
+    // }
 
     /**
      * @Route("/admin/campus/", name="campus")

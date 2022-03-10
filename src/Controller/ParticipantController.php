@@ -24,18 +24,24 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/modifier/{id}", name="participant_modifier")
+     * @Route("/admin/modifier/{id}", name="participant_modifier")
      */
     public function modifierParticipant(CampusRepository $repo, Request $req, EntityManagerInterface $em, Participant $p): Response
     {
 
-        $form=$this->createForm(ParticipantType::class,$p);
+        $form = $this->createForm(ParticipantType::class, $p);
         $form->handleRequest($req);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em->flush();
-            return $this->redirectToRoute('home', []);
+            return $this->redirectToRoute('home');
         }
-    }
 
-    
+        return $this->render(
+            'main/monProfil.html.twig',
+            [
+                'titre' => 'Mon Profil',
+                'participantForm' => $form->createView()
+            ]
+        );
+    }
 }

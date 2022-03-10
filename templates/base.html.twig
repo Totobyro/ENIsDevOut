@@ -46,8 +46,8 @@
                         class="nav-link {% if r == 'home' %}active{% endif %}"                       
                         href="{{ path('home')}}">Accueil</a></li>
                         <li class="nav-item"><a 
-                        class="nav-link {% if r == 'monProfil' %}active{% endif %}" 
-                        href="{{ path('monProfil')}}"
+                        class="nav-link {% if r == 'modifier' %}active{% endif %}" 
+                        href="{{ path('participant_modifier',{id:app.user.id })}}"
                         >Mon profil</a></li>
                         <li class="nav-item">
                         <a class="nav-link {% if r == 'app_login' %}active{% endif %}" 
