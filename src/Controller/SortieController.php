@@ -26,8 +26,8 @@ class SortieController extends AbstractController
     public function index(SortieRepository $sortieRepository): Response
     {
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll()]);
-            
+            'sorties' => $sortieRepository->findAll()
+        ]);
     }
 
     /**
@@ -42,9 +42,9 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/sortie/{id}", name="sortie")
+     * @Route("/modifier/{id}", name="modifier_sortie")
      */
-    public function sortie(Sortie $sort): Response
+    public function modifier_sortie(Sortie $sort): Response
     {
         return $this->render('sortie/modifier.html.twig', [
             'titre' => 'Page campus',

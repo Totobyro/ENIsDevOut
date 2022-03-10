@@ -2,8 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use Doctrine\DBAL\Types\FloatType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Factory\Cache\ChoiceLabel;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,17 +18,22 @@ class NouvelleSortieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateHeureDebut')
-            ->add('duree')
+            ->add('dateHeureDebut')   
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
+            ->add('duree')
             ->add('infosSortie')
-            ->add('lieu')
-            ->add('etat')
-            ->add('campus')
-            ->add('organisateur')
-            ->add('participants')
-            ->add('Submit')
+            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom' ])
+
+            // Le campus doit être récupéré par rapport au User
+            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom' ])
+
+            // ->add('latitude')
+            // ->add('longitude')
+            // ->add('etat')
+            // ->add('campus')
+            // ->add('organisateur')
+            // ->add('participants')
 
         ;
     }

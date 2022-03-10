@@ -6,11 +6,14 @@ Creer une nouvelle Sortie
 {% endblock %}
 
 
-{% block main %}
+{% block body %}
 
 {{ form_start(formulaire)}}
 {{ form_widget(formulaire)}}
-<button class="btn btn-info" type="submit">Ajouter</button>
+<button class="btn btn-info" type="submit">Enregistrer</button>
+<button class="btn btn-info" type="submit">Publier la sortie</button>
+<button class="btn btn-info" type="submit">Annuler</button>
+
 {{ form_end(formulaire)}}
 
 {% endblock %}
