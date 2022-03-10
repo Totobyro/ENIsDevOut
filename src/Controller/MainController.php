@@ -52,19 +52,31 @@ class MainController extends AbstractController
     }
 
     /**
+     * @Route("/coucou/", name="coucou")
+     */
+    public function coucou(): Response
+    {
+        return $this->render('main/coucou.html.twig', [
+            'titre' => 'Page coucou',
+        ]);
+    }
+
+
+
+    /**
      * @Route("/profile/creersortie/", name="creersortie")
      * 
      */
 
-    public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository$repoEtat, UserInterface $user): Response
+    public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository $repoEtat, UserInterface $user): Response
     {
         $sortie = new Sortie();
         $form = $this->createForm(NouvelleSortieType::class, $sortie);
 
         $form->handleRequest($req);
-       
+
         if ($form->get('save')->isClicked()) {
-        
+
             // set etat à l'id 1 -> Sortie crée (Enregistrée)
             $sortie->setEtat($repoEtat->find(1));
             //set l'id d'oragnisateur à l'id du current
@@ -74,28 +86,25 @@ class MainController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('home');
-
         } else {
-            if($form->get('publish')->isClicked()){
-                      // set etat à l'id 2 -> Sortie crée (Publiée)
-            $sortie->setEtat($repoEtat->find(2));
-            //set l'id d'oragnisateur à l'id du current
-            $sortie->setOrganisateur($user);
+            if ($form->get('publish')->isClicked()) {
+                // set etat à l'id 2 -> Sortie crée (Publiée)
+                $sortie->setEtat($repoEtat->find(2));
+                //set l'id d'oragnisateur à l'id du current
+                $sortie->setOrganisateur($user);
 
-            $em->persist($sortie);
-            $em->flush();
+                $em->persist($sortie);
+                $em->flush();
 
-            return $this->redirectToRoute('home');
-
+                return $this->redirectToRoute('home');
             }
-            
         }
         return $this->render(
             'main/creersortie.html.twig',
             ['formulaire' => $form->createView()]
         );
-        }
-    
+    }
+
 
     /**
      * @Route("/{id}", name="app_sortie_show", methods={"GET"})
@@ -106,5 +115,4 @@ class MainController extends AbstractController
             'sortie' => $sortie,
         ]);
     }
-
 }

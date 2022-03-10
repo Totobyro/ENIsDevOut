@@ -9,12 +9,13 @@ use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("profile/sortie")
@@ -45,18 +46,46 @@ class SortieController extends AbstractController
     /**
      * @Route("/modifier/{id}", name="modifier_sortie")
      */
-    public function modifier_sortie(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
+    public function modifier_sortie(Request $request, EntityManagerInterface $em, Sortie $sortie, EtatRepository $repoEtat, UserInterface $user, SortieRepository $sortieRepository): Response
     {
-        // return $this->render('sortie/modifier.html.twig', [
-        //     'sortie' => $sortie,
-        // ]);
 
         $form = $this->createForm(SortieType::class, $sortie);
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sortieRepository->add($sortie);
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $sortieRepository->add($sortie);
+        //     return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        // }
+
+        if ($form->get('save')->isClicked()) {
+
+            // set etat à l'id 1 -> Sortie crée (Enregistrée)
+            $sortie->setEtat($repoEtat->find(1));
+            //set l'id d'oragnisateur à l'id du current
+            $sortie->setOrganisateur($user);
+
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+        if ($form->get('delete')->isClicked()) {
+
+            $sortieRepository->remove($sortie);
+
+            return $this->redirectToRoute('home');
+        } else {
+            if ($form->get('publish')->isClicked()) {
+                // set etat à l'id 2 -> Sortie crée (Publiée)
+                $sortie->setEtat($repoEtat->find(2));
+                //set l'id d'oragnisateur à l'id du current
+                $sortie->setOrganisateur($user);
+
+                $em->persist($sortie);
+                $em->flush();
+
+                return $this->redirectToRoute('home');
+            }
         }
 
         return $this->renderForm('sortie/modifier.html.twig', [

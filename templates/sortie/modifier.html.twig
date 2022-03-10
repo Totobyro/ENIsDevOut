@@ -8,9 +8,10 @@ Modifier une Sortie
 
 {% block body %}
 
+<div class="container col-my">
 <h1>Modifier une Sortie</h1>
 
-<div class="container col-my">
+
 
 	{{ form_start(form)}}
 
@@ -48,8 +49,8 @@ Modifier une Sortie
 			</div>	 #}
 
 
-<div class="container col-my">
-<br><br>
+		{# <div class="container col-my">
+		<br><br>
 			<button class="btn btn-info" type="submit">
 				Enregistrer
 			</button>
@@ -62,15 +63,18 @@ Modifier une Sortie
 				Supprimer la sortie
 			</button>
 
-			<a href="{{ path('home')}}">
-				<button class="btn btn-danger">
-					Annuler
-				</button>
-			</a>
-</div>	
+		</div>	 #}
+
 
 		</div>
-		{{ form_end(form)}}	
+		{{ form_end(form)}}
+
+		<a href="{{ path('home')}}">
+			<button class="btn btn-warning">
+				Annuler
+			</button>
+		</a>
+
 		
 </div>
 

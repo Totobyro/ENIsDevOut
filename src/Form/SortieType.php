@@ -22,14 +22,17 @@ class SortieType extends AbstractType
             ->add('nbInscriptionsMax')
             ->add('duree')
             ->add('infosSortie')
+            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom'])
 
             // Le campus doit être récupéré par rapport au User
             ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom'])
 
-            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom'])
-
             //Bouttons ENREGISTRER / 
-            // ->add('save', SubmitType::class, ['label' => 'Create Task'])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+            //Boutton Publier
+            ->add('publish', SubmitType::class, ['label' => 'Publier la Sortie'])
+            //Boutton Supprimer la sortie
+            ->add('delete', SubmitType::class, ['label' => 'Supprimer la Sortie'])
 
             // ->add('latitude')
             // ->add('longitude')
