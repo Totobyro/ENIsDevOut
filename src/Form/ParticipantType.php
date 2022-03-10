@@ -23,7 +23,7 @@ class ParticipantType extends AbstractType
             ->add('telephone')
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les mots de passe ne correspondent pas, veuillez écrire le même',
                 'constraints' => array(
                   new NotBlank()
                   ),
