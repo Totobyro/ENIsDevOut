@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\NouvelleSortieType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
@@ -31,7 +32,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="afficher_sortie", methods={"GET"})
+     * @Route("/{id}", name="afficher_sortie")
      */
     public function afficher_sortie(Sortie $sortie): Response
     {
@@ -44,13 +45,26 @@ class SortieController extends AbstractController
     /**
      * @Route("/modifier/{id}", name="modifier_sortie")
      */
-    public function modifier_sortie(Sortie $sort): Response
+    public function modifier_sortie(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
     {
-        return $this->render('sortie/modifier.html.twig', [
-            'titre' => 'Page campus',
-            'sortie' => $sort,
+        // return $this->render('sortie/modifier.html.twig', [
+        //     'sortie' => $sortie,
+        // ]);
+
+        $form = $this->createForm(NouvelleSortieType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sortieRepository->add($sortie);
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('sortie/modifier.html.twig', [
+            'sortie' => $sortie,
+            'form' => $form,
         ]);
     }
+
 
     /**
      * @Route("/new", name="app_sortie_new", methods={"GET", "POST"})
@@ -71,44 +85,4 @@ class SortieController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-    /** 
-     * @Route("/modifierSortie/{id}", name="sortie_modifier")
-     */
-    public function modifierSortie(LieuRepository $repoLieu, EtatRepository $repoEtat, CampusRepository $repoCampus, Request $req, EntityManagerInterface $em, Sortie $s): Response
-    {
-
-        dd($s->getDateHeureDebut());
-        $s->setNom($req->get('nom'));
-        $s->setDateHeureDebut($req->get('heureDebut'));
-        $s->setDuree($req->get('duree'));
-        $s->setDateLimiteInscription($req->get('dateLimite'));
-        $s->setNbInscriptionsMax($req->get('heureDebut'));
-        $s->setInfosSortie($req->get('infos'));
-        $s->setLieu($repoLieu->findOneBy(array('nom' => $req->get('lieu'))));
-        $s->setEtat($repoEtat->findOneBy(array('libelle' => $req->get('etat'))));
-        $s->setCampus($repoCampus->findOneBy(array('nom' => $req->get('campus'))));
-        $em->flush();
-        return $this->redirectToRoute('home', []);
-    }
-
-    // /**
-    //  * @Route("/{id}/edit", name="app_sortie_edit", methods={"GET", "POST"})
-    //  */
-    // public function edit(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
-    // {
-    //     $form = $this->createForm(SortieType::class, $sortie);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $sortieRepository->add($sortie);
-    //         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->renderForm('sortie/edit.html.twig', [
-    //         'sortie' => $sortie,
-    //         'form' => $form,
-    //     ]);
-    // }
 }
