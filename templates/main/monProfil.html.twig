@@ -31,12 +31,14 @@
 			<div class="col-4">
 				{{ form_row(participantForm.campus) }}
 			</div>
+			<div class="col-4">
 			<button class="btn btn-info" type="submit">Modifier</button>
-			<a href="{{ path('home')}}">
-				<button class="btn btn-danger">Retour</button>
-			</a>
+			{{ form_end(participantForm)}}
+			</div>
 		</div>
-		{{ form_end(participantForm)}}
+		<a href="{{ path('home')}}">
+			<button class="btn btn-danger">Retour</button>
+		</a>
 	</div>
 
 {% endblock %}
