@@ -31,7 +31,7 @@ class ParticipantController extends AbstractController
 
         $form = $this->createForm(ParticipantType::class, $p);
         $form->handleRequest($req);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             return $this->redirectToRoute('home');
         }
