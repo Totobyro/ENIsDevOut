@@ -9,6 +9,7 @@ use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,10 +36,11 @@ class SortieController extends AbstractController
     /**
      * @Route("/{id}", name="afficher_sortie")
      */
-    public function afficher_sortie(Sortie $sortie): Response
+    public function afficher_sortie(Sortie $sortie, ParticipantRepository $participantRepository): Response
     {
         return $this->render('sortie/afficher.html.twig', [
             'sortie' => $sortie,
+            'participants' => $participantRepository->findAll()
         ]);
     }
 
