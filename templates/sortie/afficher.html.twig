@@ -66,8 +66,34 @@
                 <th>Description et infos :</th>
                 <td>{{ sortie.infosSortie }}</td>
             </tr>
+            <tr>
+                <th>Campus :</th>
+                <td>{{ sortie.campus }}</td>
+            </tr>
+            <tr>
+                <th>Lieu :</th>
+                <td>{{ sortie.lieu.nom }}</td>
+            </tr>
+            <tr>
+                <th>Rue :</th>
+                <td>{{ sortie.lieu.rue }}</td>
+            </tr>
+            <tr>
+                <th>Code postal :</th>
+                <td>{{ sortie.lieu.ville.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Latitude :</th>
+                <td>{{ sortie.lieu.latitude }}</td>
+            </tr>
+            <tr>
+                <th>Code postal :</th>
+                <td>{{ sortie.lieu.longitude }}</td>
+            </tr>
         </tbody>
     </table>
+
+
 
     {# <a href="{{ path('app_sortie_index') }}">back to list</a>
 

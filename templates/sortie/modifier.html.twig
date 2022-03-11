@@ -40,6 +40,15 @@ Modifier une Sortie
 			<div class="col-4">
 				{{ form_row(form.lieu) }}
 			</div>	
+			
+			
+			<div class="col-4">
+				Rue : {{ sortie.lieu.rue }}
+			</div>	
+			<div class="col-4">
+				Code postal : {{ sortie.lieu.ville.codePostal }}
+			</div>	
+
 
 			{#<div class="col-4">
 				{{ form_row(form.lieu.latitude) }}

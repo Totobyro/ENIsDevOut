@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
             $user->setPrenom($this->faker->firstname);
             $user->setTelephone("0102030405");
             $user->setRoles(array('ROLE_ADMIN'))->setEmail($this->faker->email)
-                ->setPassword($this->hasher->hashPassword($user, '123456'))->setActif(true)->setCampus($this->faker->randomElement($tabCampus));
+                ->setPassword($this->hasher->hashPassword($user, '123456'))->setActif(true)->setCampus($this->faker->randomElement($tabCampus))->setbrochureFileName("logoSortie.png");
             $this->manager->persist($user);
         }
 
