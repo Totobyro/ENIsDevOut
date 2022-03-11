@@ -23,7 +23,7 @@ class MainController extends AbstractController
     /**
      * @Route("/profile/", name="home")
      */
-    public function home(Request $req, SortieRepository $repo): Response
+    public function home(Request $req, SortieRepository $repo, UserInterface $user): Response
     {
         $tableauSortie = $repo->findAll();
 
@@ -31,10 +31,12 @@ class MainController extends AbstractController
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);
 
+        $sorties = $repo->findByFilters($formFiltre,$user);
+
         return $this->render(
             'main/home.html.twig',
             [
-                'tableauSortie' => $tableauSortie,
+                'tableauSortie' => $sorties,
                 'filtre' => $formFiltre->createView()
             ]
         );

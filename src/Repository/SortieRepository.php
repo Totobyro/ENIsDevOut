@@ -2,11 +2,16 @@
 
 namespace App\Repository;
 
+use App\Entity\Filtre;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Form\Form;
+use AA\UsersBundle\Entity\User;
+use App\Entity\Participant;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,6 +49,54 @@ class SortieRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+
+    public function findByFilters(Form $form, UserInterface $user)
+    {
+
+        $filtre = new Filtre();
+        $filtre = $form->getData();
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s');
+
+        if ($form->isSubmitted()) {
+            
+            if ($filtre->getRecherche()!=null) {
+                $qb->andWhere('s.nom LIKE :recherche');
+                $qb->setParameter('recherche', '%' . $filtre->getRecherche() . '%');
+            }
+            
+            if ($filtre->getCampus()!=null) {
+                $qb->andWhere('s.campus = :idcampus');
+                $qb->setParameter('idcampus', $filtre->getCampus()->getId());
+            }
+            
+            if ($filtre->getDateDebut()!=null) {
+                $qb->andWhere('s.dateHeureDebut > :dateDebut');
+                $qb->setParameter('dateDebut', $filtre->getDateDebut());
+            }
+
+            if ($filtre->getDateFin()!=null) {
+                $qb->andWhere('s.dateHeureDebut < :dateFin');
+                $qb->setParameter('dateFin', $filtre->getDateFin());
+            }
+
+            if ($filtre->getSortieOrganisateur()) {
+                $qb->andWhere('s.organisateur = :idorganisateur');
+                $qb->setParameter('idorganisateur', $user->getId());
+            }
+
+            if ($filtre->getSortiePasse()) {
+                $qb->join('s.etat', 'e');
+                $qb->addSelect('e');
+                $qb->andWhere('e.libelle LIKE :passe');
+                $qb->setParameter('passe', '%Passée%');
+            }
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
