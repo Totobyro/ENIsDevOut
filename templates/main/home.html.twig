@@ -132,6 +132,10 @@
                             <td>{{ s.duree}}</td>
                             {# Ajouter seulement la 1ere lettre du prénom #}
                             <td>{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</td> 
+                            {% if app.user == s.organisateur %}
+                                <td><a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a></td>
+                            {% endif %}
+                            
                             <td>
                                 <a href="{{ path('afficher_sortie', {'id': s.id}) }}">afficher</a>
                             </td>
@@ -140,7 +144,6 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </a>
                             </td> #}
-                            <td><a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a></td>
                         </tr>
                         {% endfor %}            
                     </tbody>

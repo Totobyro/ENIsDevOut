@@ -2,15 +2,13 @@
 
 namespace App\Repository;
 
-use App\Entity\Filtre;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Form;
-use AA\UsersBundle\Entity\User;
-use App\Entity\Participant;
+use App\Model\Filtre;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -61,12 +59,12 @@ class SortieRepository extends ServiceEntityRepository
 
         if ($form->isSubmitted()) {
             
-            if ($filtre->getRecherche()!=null) {
+            if ($filtre->getRecherche()!=null && $filtre->getRecherche()!="") {
                 $qb->andWhere('s.nom LIKE :recherche');
                 $qb->setParameter('recherche', '%' . $filtre->getRecherche() . '%');
             }
             
-            if ($filtre->getCampus()!=null) {
+            if ($filtre->getCampus()!=null && $filtre->getCampus()->getNom()!="Toutes") {
                 $qb->andWhere('s.campus = :idcampus');
                 $qb->setParameter('idcampus', $filtre->getCampus()->getId());
             }
@@ -74,6 +72,7 @@ class SortieRepository extends ServiceEntityRepository
             if ($filtre->getDateDebut()!=null) {
                 $qb->andWhere('s.dateHeureDebut > :dateDebut');
                 $qb->setParameter('dateDebut', $filtre->getDateDebut());
+
             }
 
             if ($filtre->getDateFin()!=null) {

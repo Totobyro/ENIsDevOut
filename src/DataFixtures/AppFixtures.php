@@ -54,6 +54,9 @@ class AppFixtures extends Fixture
             $user->setTelephone("0102030405");
             $user->setRoles(array('ROLE_ADMIN'))->setEmail($this->faker->email)
                 ->setPassword($this->hasher->hashPassword($user, '123456'))->setActif(true)->setCampus($this->faker->randomElement($tabCampus));
+            while ($user->getCampus()->getNom()=="Toutes") {
+                $user->setCampus($this->faker->randomElement($tabCampus));
+            }
             $this->manager->persist($user);
         }
 
@@ -67,11 +70,16 @@ class AppFixtures extends Fixture
     public function addCampus()
     {
 
+        $campus = new Campus();
+        $campus->setNom("Toutes");
+        $this->manager->persist($campus);
+        
         for ($i = 0; $i < 4; $i++) {
             $campus = new Campus();
             $campus->setNom($this->faker->region);
             $this->manager->persist($campus);
         }
+
         $this->manager->flush();
     }
 
@@ -121,7 +129,6 @@ class AppFixtures extends Fixture
         $etat = new Etat();
         $etat->setLibelle("Annulée");
         $this->manager->persist($etat);
-
         $this->manager->flush();
     }
 
@@ -143,6 +150,9 @@ class AppFixtures extends Fixture
             $sortie->setLieu($this->faker->randomElement($tabLieux));
             $sortie->setEtat($this->faker->randomElement($tabEtats));
             $sortie->setCampus($this->faker->randomElement($tabCampus));
+            while ($sortie->getCampus()->getNom()=="Toutes") {
+                $sortie->setCampus($this->faker->randomElement($tabCampus));
+            }
             $sortie->setOrganisateur($this->faker->randomElement($tabParticipants));
             $this->manager->persist($sortie);
         }

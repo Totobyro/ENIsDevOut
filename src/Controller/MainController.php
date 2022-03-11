@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Filtre as EntityFiltre;
 use App\Entity\Sortie;
 use App\Form\FiltreType;
-use App\Form\NouvelleSortieType;
+use App\Model\Filtre;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -28,12 +27,11 @@ class MainController extends AbstractController
     {
         $tableauSortie = $repo->findAll();
 
-        $filtre = new EntityFiltre();
+        $filtre = new Filtre();
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);
 
         $sorties = $repo->findByFilters($formFiltre,$user);
-
         return $this->render(
             'main/home.html.twig',
             [
@@ -82,7 +80,7 @@ class MainController extends AbstractController
     public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository $repoEtat, UserInterface $user,CampusRepository $repoCampus): Response
     {
         $sortie = new Sortie();
-        $form = $this->createForm(NouvelleSortieType::class, $sortie);
+        $form = $this->createForm(Filtre::class, $sortie);
 
         $form->handleRequest($req);
 
@@ -92,7 +90,7 @@ class MainController extends AbstractController
 
             // set etat à l'id 1 -> Sortie crée (Enregistrée)
             // ->find(1) est à changé si la bdd est re-generée
-            $sortie->setEtat($repoEtat->find(7));
+            $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
             //set l'id d'oragnisateur à l'id du current
             $sortie->setOrganisateur($user);
             //set l'id du campus à celui du User
@@ -105,7 +103,7 @@ class MainController extends AbstractController
         } else {
             if ($form->get('publish')->isClicked()) {
                 // set etat à l'id 2 -> Sortie crée (Publiée)
-                $sortie->setEtat($repoEtat->find(8));
+                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
                 //set l'id d'oragnisateur à l'id du current
                 $sortie->setOrganisateur($user);
                  //set l'id du campus à celui du User

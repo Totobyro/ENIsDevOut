@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Model;
 use App\Entity\Campus;
 
 class Filtre
