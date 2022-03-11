@@ -1,60 +1,25 @@
 <?php
-
 namespace App\Entity;
+use App\Entity\Campus;
 
-use App\Repository\FiltreRepository;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity(repositoryClass=FiltreRepository::class)
- */
 class Filtre
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Campus::class, cascade={"persist", "remove"})
-     */
     private $campus;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $recherche;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
     private $dateDebut;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
     private $dateFin;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $sortieOrganisateur;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $sortieInscrit;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $sortieNonInscrit;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $sortiePasse;
 
     public function getId(): ?int

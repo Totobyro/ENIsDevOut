@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Filtre;
+use App\Entity\Filtre as EntityFiltre;
 use App\Entity\Sortie;
 use App\Form\FiltreType;
 use App\Form\NouvelleSortieType;
@@ -10,7 +10,6 @@ use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +28,7 @@ class MainController extends AbstractController
     {
         $tableauSortie = $repo->findAll();
 
-        $filtre = new Filtre();
+        $filtre = new EntityFiltre();
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);
 
