@@ -14,7 +14,11 @@ Creer une nouvelle Sortie
 				{{ form_row(formulaire.nom) }}
 			</div>
 			<div class="col-6">
-				{{ form_row(formulaire.campus) }}
+			  <label for="campus">Campus</label></br>
+			  {{app.User.campus}}
+
+
+				{# {{ form_row(formulaire.campus) }} #}
 			</div>
 		</div>
 		<div class="row">

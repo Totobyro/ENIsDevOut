@@ -24,9 +24,6 @@ class NouvelleSortieType extends AbstractType
             ->add('infosSortie')
             ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom' ])
 
-            // Le campus doit être récupéré par rapport au User
-            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom' ])
-
             //Bouttons ENREGISTRER / 
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
             //Boutton Publier

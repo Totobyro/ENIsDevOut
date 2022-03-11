@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,21 +27,25 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan("today", message="La durée de la sortie doit être supérieure à la date du jour")
      */
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer")
+      * @Assert\GreaterThan(10, message="La durée de la sortie doit être supérieure à 10 minutes")
      */
     private $duree;
 
     /**
      * @ORM\Column(type="date")
+     *
      */
     private $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(2, message="Le nombre d'inscrit max doit être supérieur à 2")
      */
     private $nbInscriptionsMax;
 
