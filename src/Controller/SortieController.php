@@ -61,7 +61,7 @@ class SortieController extends AbstractController
         if ($form->get('save')->isClicked()) {
 
             // set etat à l'id 1 -> Sortie crée (Enregistrée)
-            $sortie->setEtat($repoEtat->find(1));
+            $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
             //set l'id d'oragnisateur à l'id du current
             $sortie->setOrganisateur($user);
 
@@ -77,7 +77,7 @@ class SortieController extends AbstractController
         } else {
             if ($form->get('publish')->isClicked()) {
                 // set etat à l'id 2 -> Sortie crée (Publiée)
-                $sortie->setEtat($repoEtat->find(2));
+                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
                 //set l'id d'oragnisateur à l'id du current
                 $sortie->setOrganisateur($user);
 
