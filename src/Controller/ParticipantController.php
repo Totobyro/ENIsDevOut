@@ -105,4 +105,16 @@ class ParticipantController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/afficherProfil/{id}", name="afficher_profil")
+     */
+    public function afficher_profil( Participant $p):Response{
+
+        return $this->render('participant/afficherParticipant.html.twig', [
+            'participant' => $p,
+        ]);
+
+    }
+
 }

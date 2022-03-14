@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie{% endblock %}
+
+{% block titrePhoto %}
+	
+    <h1 class="lead">Sortie</h1> 
+
+{% endblock %}
+
+
+{% block header %}
+
+	<header id="headAfficherProfil">
+		<div class="container">
+			<div class="row">
+{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2><strong>{{ participant.nom }} {{ participant.prenom }}</strong></h2>
+        </div>
+    </div>
+
+    	<div class="col-4">
+			<img src="{{ asset('img/' ~ participant.brochureFilename) }}"></img>
+		</div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+                Prénom : 
+                {{ participant.prenom }}    
+        </div>
+    </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        Nom :
+                        {{ participant.nom }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                        Téléphone : 
+                        {{ participant.telephone }}
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        Email :
+                        {{ participant.email }}
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                        Rue :
+                        {{ participant.campus }}
+                </div>  
+            </div>
+        <div class="row">
+                <div class="col-12 text-center">
+                     <a href="{{ path('home')}}">
+			        <button class="btn btn-danger">Retour</button> </a>
+		        </div>
+        </div>
+    </div>                              
+          
+{% endblock %}
+{% block stylesheets %}       
+   
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+
+	<!-- Custom styles for our template -->
+	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+	
+    <link href="{{ asset ('assets/css/bootstrap-theme2.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/mainSortie.css')}}" rel="stylesheet">
+
+{% endblock %}

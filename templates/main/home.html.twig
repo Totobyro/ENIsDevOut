@@ -131,7 +131,9 @@
                             <td>{{ s.etat.libelle}}</td>
                             <td>{{ s.duree}}</td>
                             {# Ajouter seulement la 1ere lettre du prénom #}
-                            <td>{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</td> 
+                           
+                            <td> <a href="{{ path('afficher_profil', {'id': s.organisateur.id}) }}">{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</a></td>
+                        
                             {% if app.user == s.organisateur %}
                                 <td><a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a></td>
                             {% else %}
