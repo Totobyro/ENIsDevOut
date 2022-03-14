@@ -117,19 +117,6 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/annuler/{id}", name="annuler")
-     */
-    public function annuler(EtatRepository $repoEtat, Sortie $sortie, EntityManagerInterface $em): Response
-    {
-
-        $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Annulée']));
-        $em->persist($sortie);
-        $em->flush();
-        return $this->redirectToRoute('home');
-    }
-
-
-    /**
      * @Route("/inscrire/{id}", name="inscrire")
      */
     public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
@@ -161,4 +148,31 @@ class SortieController extends AbstractController
         }
         return $this->redirectToRoute('home');
     }
+
+     /**
+     * @Route("/annulerSortie/{id}", name="annulerSortie")
+     */
+    public function annuler_sortie(Request $request, EntityManagerInterface $em, Sortie $sortie, EtatRepository $repoEtat): Response
+    {
+
+        $formulaireAnnuler = $this->createForm(AnnulerSortieType::class, $sortie);
+
+        $formulaireAnnuler->handleRequest($request);
+
+        if ($formulaireAnnuler->isSubmitted()) {
+            
+            $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Annulée']));
+
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+            return $this->renderForm('sortie/annulerSortie.html.twig', [
+                'sortie' => $sortie,
+                'formulaireAnnuler' => $formulaireAnnuler,
+            ]);
+        
+}
 }
