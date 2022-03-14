@@ -1,19 +1,18 @@
 {% extends 'front.html.twig' %}
 
 
-{% block titre %}
-{% endblock %}
+{% block titre %}{% endblock %}
 
-    {% block stylesheets %}  
-    
-    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+{% block stylesheets %}
 
-    <link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
 
 	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
 	<link href="{{ asset ('assets/css/bootstrap-theme2.css')}}" rel="stylesheet">
-    <link href="{{ asset ('assets/css/main6.css')}}" rel="stylesheet">
-    {% endblock %}
+	<link href="{{ asset ('assets/css/main6.css')}}" rel="stylesheet">
+{% endblock %}
 
 
 {% block body %}
@@ -134,12 +133,21 @@
                            
                             <td> <a href="{{ path('afficher_profil', {'id': s.organisateur.id}) }}">{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</a></td>
                         
-                            {% if app.user == s.organisateur %}
-                                <td><a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a></td>
-                            {% else %}
-                                <td><a href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a></td>
-                            {% endif %}
-                            
+                           	{% if app.user == s.organisateur %}
+									<td>
+										<a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a>
+									</td>
+								{% else %}
+									{% if app.user.nom in s.participants  %}
+										<td>
+											<a href="{{ path('desinscrire',{'id' : s.id })}}">Desinscrire</a>
+										</td>
+									{% else %}
+										<td>
+											<a href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a>
+										</td>
+									{% endif %}
+								{% endif %}                       
                             <td>
                                 <a href="{{ path('afficher_sortie', {'id': s.id}) }}">afficher</a>
                             </td>
@@ -166,6 +174,5 @@
             </div>
          </div>
     </div> 
-
-
+	
 {% endblock %}

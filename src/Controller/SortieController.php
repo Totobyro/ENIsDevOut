@@ -128,4 +128,13 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    /**
+     * @Route("/desinscrire/{id}", name="desinscrire")
+     */
+    public function annuler(Sortie $sortie, UserInterface $user, EntityManagerInterface $em): Response
+    {
+            $sortie->removeParticipant($user);
+            $em->flush();
+        return $this->redirectToRoute('home');
+    }
 }
