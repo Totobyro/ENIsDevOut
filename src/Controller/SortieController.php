@@ -116,4 +116,16 @@ class SortieController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("/inscrire/{id}", name="inscrire")
+     */
+    public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em): Response
+    {
+        $sortie->addParticipant($user);
+        $em->persist($sortie);
+        $em->flush();
+        return $this->redirectToRoute('home');
+    }
+
 }

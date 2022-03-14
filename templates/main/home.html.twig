@@ -134,6 +134,8 @@
                             <td>{{ s.organisateur.nom}} {{ s.organisateur.prenom}}</td> 
                             {% if app.user == s.organisateur %}
                                 <td><a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a></td>
+                            {% else %}
+                                <td><a href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a></td>
                             {% endif %}
                             
                             <td>
