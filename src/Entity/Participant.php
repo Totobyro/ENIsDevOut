@@ -82,6 +82,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $brochureFilename;
 
+    public function __construct()
+    {
+        $this->sorties = new ArrayCollection();
+        $this->participantsInscrits = new ArrayCollection();
+    }
+
+
     public function getBrochureFilename()
     {
         return $this->brochureFilename;
@@ -92,13 +99,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         $this->brochureFilename = $brochureFilename;
 
         return $this;
-    }
-
-
-    public function __construct()
-    {
-        $this->sorties = new ArrayCollection();
-        $this->participantsInscrits = new ArrayCollection();
     }
 
 
