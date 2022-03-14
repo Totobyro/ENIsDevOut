@@ -12,7 +12,7 @@ security:
     app_user_provider:
       entity:
         class: App\Entity\Participant
-        property: email
+        # property: email
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -22,9 +22,9 @@ security:
       provider: app_user_provider
       custom_authenticator: App\Security\SpecialAuthenticator
       remember_me:
-        secret:   '%kernel.secret%'
+        secret: "%kernel.secret%"
         lifetime: 2592000
-        path:     /
+        path: /
       logout:
         path: app_logout
         # where to redirect after logout

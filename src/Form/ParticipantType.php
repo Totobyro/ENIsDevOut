@@ -58,7 +58,9 @@ class ParticipantType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-            ]);
+            ])
+
+            ->add('pseudo');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

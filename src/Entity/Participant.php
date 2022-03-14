@@ -82,6 +82,14 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $brochureFilename;
 
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     * 
+     */
+    private $pseudo;
+
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -97,6 +105,19 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBrochureFilename($brochureFilename)
     {
         $this->brochureFilename = $brochureFilename;
+
+        return $this;
+    }
+
+
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
@@ -313,5 +334,4 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this->nom;
     }
-
 }
