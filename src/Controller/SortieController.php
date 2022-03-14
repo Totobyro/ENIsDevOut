@@ -3,15 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
-use App\Form\NouvelleSortieType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
-use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
-use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use DateTime;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -140,22 +136,29 @@ class SortieController extends AbstractController
     {
         if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte'])) {
             $sortie->addParticipant($user);
-            if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax() && date_diff(new DateTime(), $sortie->getDateHeureDebut())<0) {
+            if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax() && date_diff(new DateTime(), $sortie->getDateHeureDebut()) < 0) {
                 $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Cloturée']));
             }
             $em->persist($sortie);
             $em->flush();
-            return $this->redirectToRoute('home');
+        } else {
+            $this->addFlash('danger', "Tu ne peux pas t'inscrire, la sortie n'est plus ouverte aux inscriptions");
         }
+        return $this->redirectToRoute('home');
     }
 
     /**
      * @Route("/desinscrire/{id}", name="desinscrire")
      */
-    public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em): Response
+    public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
-        $sortie->removeParticipant($user);
-        $em->flush();
+        if ($sortie->getEtat() != $repoEtat->findOneBy(['libelle' => 'Ouverte']) || $sortie->getEtat() != $repoEtat->findOneBy(['libelle' => 'Cloturée'])) {
+            $sortie->removeParticipant($user);
+            $em->flush();
+        }
+        else {
+            $this->addFlash('danger', "Tu ne peux plus te désinscrire");
+        }
         return $this->redirectToRoute('home');
     }
 }

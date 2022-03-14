@@ -110,7 +110,6 @@ document.getElementById("current_date").innerHTML = month + "/" + day + "/" + ye
 			</div>
 		</div>
 		{# </form> #}
-
 		<div
 			class="row">
 			<!-- etape 3  -->
@@ -150,26 +149,26 @@ document.getElementById("current_date").innerHTML = month + "/" + day + "/" + ye
 
 								{% if app.user == s.organisateur %}
 									<td>
-										<a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a>  
-										<a href="{{ path('annuler',{'id' : s.id })}}">Annuler</a>   
+										<a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a>
+										<a href="{{ path('annuler',{'id' : s.id })}}">Annuler</a>
 									</td>
 								{% else %}
 									{% if app.user.nom in s.participants  %}
 										<td>
-											<a href="{{ path('desinscrire',{'id' : s.id })}}">Desinscrire</a>   
+											<a href="{{ path('desinscrire',{'id' : s.id })}}">Desinscrire</a>
 										{% else %}
 											<td>
-												<a href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a>   
+												<a href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a>
 
 											{% endif %}
 										{% endif %}
-										<a href="{{ path('afficher_sortie', {'id': s.id}) }}">Afficher</a>  
+										<a href="{{ path('afficher_sortie', {'id': s.id}) }}">Afficher</a>
 									</td>
 									{# <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btn-success">
-									                                <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btnClassement">
-									                                <i class="fa fa-eye" aria-hidden="true"></i> 
-									                                </a>
-									                            </td> #}
+																											                                <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btnClassement">
+																											                                <i class="fa fa-eye" aria-hidden="true"></i> 
+																											                                </a>
+																											                            </td> #}
 								</tr>
 							{% endfor %}
 						</tbody>
@@ -178,6 +177,13 @@ document.getElementById("current_date").innerHTML = month + "/" + day + "/" + ye
 			</div>
 		</div>
 
+        <div class="row">
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+        </div>
 		<!-- Boutton ajouter une sortie -->
 
 		<div class="row">

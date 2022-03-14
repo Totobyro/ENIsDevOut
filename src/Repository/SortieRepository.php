@@ -55,7 +55,7 @@ class SortieRepository extends ServiceEntityRepository
         $filtre = new Filtre();
         $filtre = $form->getData();
         $qb = $this->createQueryBuilder('s');
-        $qb->select('s')->where('DATE_DIFF(CURRENT_DATE(), s.dateHeureDebut)<30');
+        $qb->select('s');
 
         if ($form->isSubmitted()) {
             

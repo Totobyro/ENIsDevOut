@@ -9,6 +9,7 @@ use App\Model\Filtre;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,20 +25,22 @@ class MainController extends AbstractController
     /**
      * @Route("/profile/", name="home")
      */
-    public function home(Request $req, SortieRepository $repo, UserInterface $user): Response
+    public function home(Request $req, SortieRepository $repo, UserInterface $user, EtatRepository $repoEtat): Response
     {
-        $tableauSortie = $repo->findAll();
 
         $filtre = new Filtre();
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);
 
         $sorties = $repo->findByFilters($formFiltre, $user);
+        foreach ($sorties as $sortie) {
+            
+        }
         return $this->render(
             'main/home.html.twig',
             [
                 'tableauSortie' => $sorties,
-                'filtre' => $formFiltre->createView()
+                'filtre' => $formFiltre->createView(),
             ]
         );
     }
@@ -119,7 +122,7 @@ class MainController extends AbstractController
         }
         return $this->render(
             'main/creersortie.html.twig',
-            ['formulaire' => $form->createView()]
+            ['formulaire' => $form->createView(),]
         );
     }
 
