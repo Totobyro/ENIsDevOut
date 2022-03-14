@@ -10,6 +10,12 @@
 
 {% block body %}
 	<h1>{{ titre }}</h1>
+
+		<div class="col-4">
+			<img src="{{ asset('img/' ~ participant.brochureFilename) }}"></img>
+		</div>
+
+
 	<div class="container col-my">
 		{{ form_start(participantForm)}}
 		<div class="row">
@@ -31,6 +37,11 @@
 			<div class="col-4">
 				{{ form_row(participantForm.campus) }}
 			</div>
+
+			<div class="col-4">
+				{{ form_row(participantForm.brochure) }}
+			</div>
+
 			<div class="col-4">
 			<button class="btn btn-info" type="submit">Modifier</button>
 			{{ form_end(participantForm)}}
