@@ -71,8 +71,6 @@ class AppFixtures extends Fixture
     {
 
         $campus = new Campus();
-        $campus->setNom("Toutes");
-        $this->manager->persist($campus);
 
         for ($i = 0; $i < 4; $i++) {
             $campus = new Campus();

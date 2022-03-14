@@ -45,7 +45,9 @@ class FiltreType extends AbstractType
                 'label'    => 'Sorties Passées',
                 'required' => false,
             ])
-            ->add('campus',EntityType::class, ['class'=> Campus::class, 'choice_label'=>'nom'])
+            ->add('campus',EntityType::class, ['class'=> Campus::class, 'choice_label'=>'nom',
+            'placeholder' => 'Tous les campus',
+            'required'   => false,])
         ;
     }
 

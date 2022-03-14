@@ -64,7 +64,7 @@ class SortieRepository extends ServiceEntityRepository
                 $qb->setParameter('recherche', '%' . $filtre->getRecherche() . '%');
             }
             
-            if ($filtre->getCampus()!=null && $filtre->getCampus()->getNom()!="Toutes") {
+            if ($filtre->getCampus()!=null) {
                 $qb->andWhere('s.campus = :idcampus');
                 $qb->setParameter('idcampus', $filtre->getCampus()->getId());
             }
