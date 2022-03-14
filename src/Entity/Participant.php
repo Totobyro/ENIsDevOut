@@ -77,22 +77,22 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $campus;
 
 
-    // /**
-    //  * @ORM\Column(type="string")
-    //  */
-    // private $brochureFilename;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $brochureFilename;
 
-    // public function getBrochureFilename()
-    // {
-    //     return $this->brochureFilename;
-    // }
+    public function getBrochureFilename()
+    {
+        return $this->brochureFilename;
+    }
 
-    // public function setBrochureFilename($brochureFilename)
-    // {
-    //     $this->brochureFilename = $brochureFilename;
+    public function setBrochureFilename($brochureFilename)
+    {
+        $this->brochureFilename = $brochureFilename;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
 
     public function __construct()
@@ -313,4 +313,5 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this->nom;
     }
+
 }
