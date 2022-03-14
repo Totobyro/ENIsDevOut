@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\FiltreType;
+use App\Form\NouvelleSortieType;
 use App\Model\Filtre;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
@@ -79,7 +80,8 @@ class MainController extends AbstractController
     public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository $repoEtat, UserInterface $user, CampusRepository $repoCampus): Response
     {
         $sortie = new Sortie();
-        $form = $this->createForm(Filtre::class, $sortie);
+        $sortie->addParticipant($user);
+        $form = $this->createForm(NouvelleSortieType::class, $sortie);
 
         $form->handleRequest($req);
 

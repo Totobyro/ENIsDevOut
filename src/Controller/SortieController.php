@@ -10,6 +10,7 @@ use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -100,9 +101,10 @@ class SortieController extends AbstractController
     /**
      * @Route("/new", name="app_sortie_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, SortieRepository $sortieRepository): Response
+    public function new(Request $request, SortieRepository $sortieRepository, UserInterface $user): Response
     {
         $sortie = new Sortie();
+        $sortie->addParticipant($user);
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
@@ -111,6 +113,7 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->renderForm('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
@@ -118,23 +121,41 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/inscrire/{id}", name="inscrire")
+     * @Route("/annuler/{id}", name="annuler")
      */
-    public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em): Response
+    public function annuler(EtatRepository $repoEtat, Sortie $sortie, EntityManagerInterface $em): Response
     {
-        $sortie->addParticipant($user);
+
+        $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Annulée']));
         $em->persist($sortie);
         $em->flush();
         return $this->redirectToRoute('home');
     }
 
+
+    /**
+     * @Route("/inscrire/{id}", name="inscrire")
+     */
+    public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
+    {
+        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte'])) {
+            $sortie->addParticipant($user);
+            if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax() && date_diff(new DateTime(), $sortie->getDateHeureDebut())<0) {
+                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Cloturée']));
+            }
+            $em->persist($sortie);
+            $em->flush();
+            return $this->redirectToRoute('home');
+        }
+    }
+
     /**
      * @Route("/desinscrire/{id}", name="desinscrire")
      */
-    public function annuler(Sortie $sortie, UserInterface $user, EntityManagerInterface $em): Response
+    public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em): Response
     {
-            $sortie->removeParticipant($user);
-            $em->flush();
+        $sortie->removeParticipant($user);
+        $em->flush();
         return $this->redirectToRoute('home');
     }
 }

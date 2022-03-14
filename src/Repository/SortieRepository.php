@@ -55,7 +55,7 @@ class SortieRepository extends ServiceEntityRepository
         $filtre = new Filtre();
         $filtre = $form->getData();
         $qb = $this->createQueryBuilder('s');
-        $qb->select('s');
+        $qb->select('s')->where('DATE_DIFF(CURRENT_DATE(), s.dateHeureDebut)<30');
 
         if ($form->isSubmitted()) {
             
@@ -83,6 +83,16 @@ class SortieRepository extends ServiceEntityRepository
             if ($filtre->getSortieOrganisateur()) {
                 $qb->andWhere('s.organisateur = :idorganisateur');
                 $qb->setParameter('idorganisateur', $user->getId());
+            }
+
+            if ($filtre->getSortieInscrit()) {
+                $qb->andWhere(':idparticipant MEMBER OF s.participants');
+                $qb->setParameter('idparticipant', $user->getId());
+            }
+
+            if ($filtre->getSortieNonInscrit()) {
+                $qb->andWhere(':idparticipant NOT MEMBER OF s.participants');
+                $qb->setParameter('idparticipant', $user->getId());
             }
 
             if ($filtre->getSortiePasse()) {
