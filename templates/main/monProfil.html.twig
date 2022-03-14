@@ -9,50 +9,48 @@
 
 
 {% block body %}
-	<h1>{{ titre }}</h1>
 
+<div class="container text-center">
+    <div class="row">
 		<div class="col-4">
 			<img src="{{ asset('img/' ~ participant.brochureFilename) }}"></img>
 		</div>
 
+	<div class="col-4">
+		<h2>{{ titre }}</h2>
+	</div>
+	<br>
 
-	<div class="container col-my">
 		{{ form_start(participantForm)}}
-		<div class="row">
-			<div class="col-4">
-				{{ form_row(participantForm.prenom) }}
-			</div>
-			<div class="col-4">
-				{{ form_row(participantForm.nom) }}
-			</div>
-			<div class="col-4">
-				{{ form_row(participantForm.pseudo) }}
-			</div>
-			<div class="col-4">
-				{{ form_row(participantForm.telephone) }}
-			</div>
-			<div class="col-4">
-				{{ form_row(participantForm.email) }}
-			</div>
-			<div class="col-4">
-				{{ form_row(participantForm.password) }}
-			</div>
-			<div class="col-4">
-				{{ form_row(participantForm.campus) }}
-			</div>
+		
+		{{ form_row(participantForm.pseudo) }}
+			
+		{{ form_row(participantForm.prenom) }}
+			
+		{{ form_row(participantForm.nom) }}
+		
+		{{ form_row(participantForm.telephone) }}
+				
+		{{ form_row(participantForm.email) }}
+				
+		{{ form_row(participantForm.password) }}
+			
+		{{ form_row(participantForm.campus) }}
 
-			<div class="col-4">
-				{{ form_row(participantForm.brochure) }}
-			</div>
+		{{ form_row(participantForm.brochure) }}
 
-			<div class="col-4">
-			<button class="btn btn-info" type="submit">Modifier</button>
-			{{ form_end(participantForm)}}
+		<div class="col-4">
+			<br>
+			<br>
+				<button class="btn btn-info" type="submit">Modifier</button>
+				{{ form_end(participantForm)}}
 			</div>
 		</div>
 		<a href="{{ path('home')}}">
+		<br>
 			<button class="btn btn-danger">Retour</button>
 		</a>
+	</div>
 	</div>
 
 {% endblock %}

@@ -35,7 +35,7 @@ class ParticipantType extends AbstractType
             ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom'])
 
             ->add('brochure', FileType::class, [
-                'label' => 'Télécharger image (jpeg/png)',
+                'label' => 'Ma photo:',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,

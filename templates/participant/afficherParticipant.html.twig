@@ -8,6 +8,10 @@
 
 {% endblock %}
 
+{% block stylesheet %}
+	<link href="{{ asset ('assets/css/mainProfil2.css')}}" rel="stylesheet">
+
+{% endblock %}
 
 {% block header %}
 
@@ -20,50 +24,35 @@
 {% block body %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 text-center">
-            <h2><strong>{{ participant.nom }} {{ participant.prenom }}</strong></h2>
-        </div>
-    </div>
-
     	<div class="col-4">
 			<img src="{{ asset('img/' ~ participant.brochureFilename) }}"></img>
 		</div>
 
-    <div class="row">
-        <div class="col-12 text-center">
-                Prénom : 
+        <div class="col-8 text-center">
+            <h2><strong>{{ participant.nom }} {{ participant.prenom }}</strong></h2>
+                <p>Prénom : 
                 {{ participant.prenom }}    
-        </div>
+                </p>
+                <p>Nom :
+                {{ participant.nom }}
+                </p>
+                <p>Téléphone : 
+                    {{ participant.telephone }}
+                </p>
+                <p>Email :
+                    {{ participant.email }}
+                </p>
+                <p>Rue :
+                    {{ participant.campus }}
+                </p>
+
+        </div>  
     </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        Nom :
-                        {{ participant.nom }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                        Téléphone : 
-                        {{ participant.telephone }}
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        Email :
-                        {{ participant.email }}
-                    </div>
-                </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                        Rue :
-                        {{ participant.campus }}
-                </div>  
-            </div>
-        <div class="row">
-                <div class="col-12 text-center">
-                     <a href="{{ path('home')}}">
-			        <button class="btn btn-danger">Retour</button> </a>
-		        </div>
+        <div class="row my-4">
+            <div class="col-12 text-center">
+                <a href="{{ path('home')}}">
+			    <button class="btn btn-danger">Retour</button> </a>
+		    </div>
         </div>
     </div>                              
           

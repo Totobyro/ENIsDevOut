@@ -165,7 +165,10 @@ ul.list-spaces li {
 }
 
 img {
-  max-width: 100%;
+  /* max-width: 100%; */
+  max-width: 500px;
+  max-height: 260px;
+  border-radius: 50%;
 }
 img.pull-right {
   margin-left: 10px;
