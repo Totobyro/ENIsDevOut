@@ -31,7 +31,7 @@ class MainController extends AbstractController
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);
 
-        $sorties = $repo->findByFilters($formFiltre,$user);
+        $sorties = $repo->findByFilters($formFiltre, $user);
         return $this->render(
             'main/home.html.twig',
             [
@@ -85,24 +85,11 @@ class MainController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-        if ($form->get('save')->isClicked()) {
+            if ($form->get('save')->isClicked()) {
 
-            // set etat à l'id 1 -> Sortie crée (Enregistrée)
-            // ->find(1) est à changé si la bdd est re-generée
-            $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
-            //set l'id d'oragnisateur à l'id du current
-            $sortie->setOrganisateur($user);
-            //set l'id du campus à celui du User
-            $sortie->setCampus($repoCampus->find($user->getCampus()->getId()));
-
-            $em->persist($sortie);
-            $em->flush();
-
-            return $this->redirectToRoute('home');
-        } else {
-            if ($form->get('publish')->isClicked()) {
-                // set etat à l'id 2 -> Sortie crée (Publiée)
-                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
+                // set etat à l'id 1 -> Sortie crée (Enregistrée)
+                // ->find(1) est à changé si la bdd est re-generée
+                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
                 //set l'id d'oragnisateur à l'id du current
                 $sortie->setOrganisateur($user);
                 //set l'id du campus à celui du User
@@ -115,7 +102,7 @@ class MainController extends AbstractController
             } else {
                 if ($form->get('publish')->isClicked()) {
                     // set etat à l'id 2 -> Sortie crée (Publiée)
-                    $sortie->setEtat($repoEtat->find(8));
+                    $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
                     //set l'id d'oragnisateur à l'id du current
                     $sortie->setOrganisateur($user);
                     //set l'id du campus à celui du User
@@ -133,7 +120,7 @@ class MainController extends AbstractController
             ['formulaire' => $form->createView()]
         );
     }
-}
+
 
 
     /**

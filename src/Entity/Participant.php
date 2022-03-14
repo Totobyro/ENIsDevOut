@@ -77,6 +77,24 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $campus;
 
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $brochureFilename;
+
+    public function getBrochureFilename()
+    {
+        return $this->brochureFilename;
+    }
+
+    public function setBrochureFilename($brochureFilename)
+    {
+        $this->brochureFilename = $brochureFilename;
+
+        return $this;
+    }
+
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
