@@ -33,9 +33,6 @@ class MainController extends AbstractController
         $formFiltre->handleRequest($req);
 
         $sorties = $repo->findByFilters($formFiltre, $user);
-        foreach ($sorties as $sortie) {
-            
-        }
         return $this->render(
             'main/home.html.twig',
             [

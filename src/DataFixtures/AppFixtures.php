@@ -124,6 +124,9 @@ class AppFixtures extends Fixture
         $etat = new Etat();
         $etat->setLibelle("Annulée");
         $this->manager->persist($etat);
+        $etat = new Etat();
+        $etat->setLibelle("Historisée");
+        $this->manager->persist($etat);
         $this->manager->flush();
     }
 

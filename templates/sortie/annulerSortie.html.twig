@@ -45,8 +45,17 @@ Modifier une Sortie
            {{ form_row(formulaireAnnuler.infosSortie) }}
         </div>
     </div>
+
+    <div class="row">
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
      
 {{ form_end(formulaireAnnuler) }}
+
 		<a href="{{ path('home')}}">
 			<button class="btn btn-warning">
 				Annuler

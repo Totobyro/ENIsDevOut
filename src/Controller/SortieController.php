@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\AnnulerSortieType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use App\Repository\EtatRepository;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @Route("profile/sortie")
+ * @Route("profile/sortie") 
  */
 class SortieController extends AbstractController
 {
@@ -57,7 +58,7 @@ class SortieController extends AbstractController
         //     return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         // }
 
-        if ($form->get('save')->isClicked()) {
+        if ($form->get('save')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
 
             // set etat à l'id 1 -> Sortie crée (Enregistrée)
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
@@ -68,7 +69,7 @@ class SortieController extends AbstractController
 
             return $this->redirectToRoute('home');
         }
-        if ($form->get('delete')->isClicked()) {
+        if ($form->get('delete')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
 
             $sortieRepository->remove($sortie);
 
@@ -121,9 +122,10 @@ class SortieController extends AbstractController
      */
     public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
-        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte'])) {
+
+        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte']) && $sortie->getParticipants()->count() < $sortie->getNbInscriptionsMax() && new DateTime() < $sortie->getDateHeureDebut()){
             $sortie->addParticipant($user);
-            if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax() && date_diff(new DateTime(), $sortie->getDateHeureDebut()) < 0) {
+            if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax()) {
                 $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Cloturée']));
             }
             $em->persist($sortie);
@@ -139,8 +141,9 @@ class SortieController extends AbstractController
      */
     public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
-        if ($sortie->getEtat() != $repoEtat->findOneBy(['libelle' => 'Ouverte']) || $sortie->getEtat() != $repoEtat->findOneBy(['libelle' => 'Cloturée'])) {
+        if (new DateTime() < $sortie->getDateHeureDebut()) {
             $sortie->removeParticipant($user);
+            $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
             $em->flush();
         }
         else {
@@ -159,7 +162,7 @@ class SortieController extends AbstractController
 
         $formulaireAnnuler->handleRequest($request);
 
-        if ($formulaireAnnuler->isSubmitted()) {
+        if ($formulaireAnnuler->isSubmitted() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
             
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Annulée']));
 
@@ -167,6 +170,8 @@ class SortieController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('home');
+        }else {
+            $this->addFlash('danger', "Tu ne peux plus modifier ta sortie");
         }
 
             return $this->renderForm('sortie/annulerSortie.html.twig', [
