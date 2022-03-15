@@ -27,7 +27,6 @@ class MainController extends AbstractController
      */
     public function home(Request $req, SortieRepository $repo, UserInterface $user, EtatRepository $repoEtat): Response
     {
-
         $filtre = new Filtre();
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);

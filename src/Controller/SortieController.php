@@ -123,7 +123,7 @@ class SortieController extends AbstractController
     public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
 
-        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte']) && $sortie->getParticipants()->count() < $sortie->getNbInscriptionsMax() && new DateTime() < $sortie->getDateHeureDebut()){
+        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte']) && $sortie->getParticipants()->count() < $sortie->getNbInscriptionsMax() && new DateTime() < $sortie->getDateHeureDebut()) {
             $sortie->addParticipant($user);
             if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax()) {
                 $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Cloturée']));
@@ -145,14 +145,13 @@ class SortieController extends AbstractController
             $sortie->removeParticipant($user);
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
             $em->flush();
-        }
-        else {
+        } else {
             $this->addFlash('danger', "Tu ne peux plus te désinscrire");
         }
         return $this->redirectToRoute('home');
     }
 
-     /**
+    /**
      * @Route("/annulerSortie/{id}", name="annulerSortie")
      */
     public function annuler_sortie(Request $request, EntityManagerInterface $em, Sortie $sortie, EtatRepository $repoEtat): Response
@@ -163,21 +162,20 @@ class SortieController extends AbstractController
         $formulaireAnnuler->handleRequest($request);
 
         if ($formulaireAnnuler->isSubmitted() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
-            
+
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Annulée']));
 
             $em->persist($sortie);
             $em->flush();
 
             return $this->redirectToRoute('home');
-        }else {
+        } else {
             $this->addFlash('danger', "Tu ne peux plus modifier ta sortie");
         }
 
-            return $this->renderForm('sortie/annulerSortie.html.twig', [
-                'sortie' => $sortie,
-                'formulaireAnnuler' => $formulaireAnnuler,
-            ]);
-        
-}
+        return $this->renderForm('sortie/annulerSortie.html.twig', [
+            'sortie' => $sortie,
+            'formulaireAnnuler' => $formulaireAnnuler,
+        ]);
+    }
 }

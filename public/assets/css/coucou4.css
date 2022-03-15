@@ -1,8 +1,10 @@
 /* Header */
 #headVille {
-  background: #181015 url(../images/cc.jpg) no-repeat;
+  background: #181015 url(../images/photoGroupe.png) no-repeat;
   background-size: cover;
-  min-height: 820px;
+  width: 100%;
+  /* min-height: 150%; */
+  min-height: 680px;
   text-align: center;
   padding-top: 240px;
   color: white;
@@ -61,16 +63,27 @@
   background: transparent;
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 1000px) {
   #headVille {
-    min-height: 620px;
-    /* padding-top: 160px; 
+    background: #181015 url(../images/photoGroupeEcureuil.jpg) no-repeat;
+    background-size: cover;
+    width: 100%;
+    /* min-height: 150%; */
+    min-height: 680px;
+    text-align: center;
+    padding-top: 240px;
+    color: white;
+    font-family: "Open sans", Helvetica, Arial;
+    font-weight: 300;
+    margin-bottom: -140px;
+    transition-property: margin-right;
+    transition-delay: 250ms;
   }
-  #headVille .lead {
+  /* #headVille .lead {
     font-size: 34px;
-  }
+  } */
 }
-
+/*
 @media (min-width: 768px) {
   #headVille {
     display: none;
