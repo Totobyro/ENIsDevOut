@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -41,17 +42,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Regex(pattern="/[a-zA-Z0-9 ]+/", match=true, message="Les caractères spéciaux sont interdits dans le nom")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Length(min="5", minMessage="Must be greater than 5 characters")
+     * @Assert\Length(min="3", minMessage="Votre prénom doit être supérieur à 3 caractères")
+     * @Assert\Regex(pattern="/[a-zA-Z0-9 ]+/", match=true, message="Les caractères spéciaux sont interdits dans le prenom")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Regex(pattern="/[0-9 ]+/", match=true, message="Le numéro de téléphone ne peut contenir que des chiffres")
      */
     private $telephone;
 
@@ -84,8 +88,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * 
+     * @ORM\Column(type="string", length=180, unique=true, nullable=true)
+     * @Assert\Regex(pattern="/[a-zA-Z0-9 ]+/", match=true, message="Les caractères spéciaux sont interdits dans le pseudo")
      */
     private $pseudo;
 

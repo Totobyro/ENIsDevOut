@@ -286,3 +286,9 @@ img.pull-left {
 .membre {
   font-size: x-large;
 }
+
+.formulaire {
+  width: 250px;
+  margin: auto;
+
+}

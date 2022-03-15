@@ -28,29 +28,37 @@ class Sortie
     /**
      * @ORM\Column(type="datetime")
      * @Assert\GreaterThan("today", message="La durée de la sortie doit être supérieure à la date du jour")
+     * 
+     * @Assert\DateTime
+     * @var string A "d-m-Y H:i:s" formatted value
+     * 
      */
+    
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer")
-      * @Assert\GreaterThan(10, message="La durée de la sortie doit être supérieure à 10 minutes")
+      * @Assert\GreaterThan(5, message="La durée de la sortie doit être supérieure à 10 minutes")
      */
     private $duree;
 
     /**
      * @ORM\Column(type="date")
-     *
+     * @Assert\Date
+     * @var string A "d-m-Y" formatted value
      */
     private $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\GreaterThan(2, message="Le nombre d'inscrit max doit être supérieur à 2")
+     *
      */
     private $nbInscriptionsMax;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $infosSortie;
 
