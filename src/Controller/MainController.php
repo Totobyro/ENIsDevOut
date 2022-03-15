@@ -9,7 +9,9 @@ use App\Model\Filtre;
 use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use DateInterval;
 use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,13 +27,29 @@ class MainController extends AbstractController
     /**
      * @Route("/profile/", name="home")
      */
-    public function home(Request $req, SortieRepository $repo, UserInterface $user, EtatRepository $repoEtat): Response
+    public function home(Request $req, SortieRepository $repo, UserInterface $user, EtatRepository $repoEtat, EntityManagerInterface $em): Response
     {
         $filtre = new Filtre();
         $formFiltre = $this->createForm(FiltreType::class, $filtre);
         $formFiltre->handleRequest($req);
 
         $sorties = $repo->findByFilters($formFiltre, $user);
+        
+        // foreach ($sorties as $sort) {
+        //     $dateFin=new DateTimeImmutable();
+        //     $dateFin->createFromMutable($sort->getDateHeureDebut());
+        //     dd($sort->getDateHeureDebut());
+        //     if ($sort->getDateHeureDebut() > new DateTime() && $dateFin->add(new DateInterval('PT'.$sort->getDuree().'M')) > new DateTime()) {
+        //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Activité en cours']));
+        //     }elseif ($dateFin->add(new DateInterval('PT'.$sort->getDuree().'M')) < new DateTime() && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Annulée'])) && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Historisée']))){
+        //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Passée']));
+        //     }elseif ($sort->getDateLimiteInscription() > new DateTime() && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Ouverte'])) && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Cloturée']))) {
+        //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
+        //     }
+        //     $em->persist($sort);
+            
+        // }
+        // $em->flush();
         return $this->render(
             'main/home.html.twig',
             [

@@ -123,7 +123,7 @@ class SortieController extends AbstractController
     public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
 
-        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte']) && $sortie->getParticipants()->count() < $sortie->getNbInscriptionsMax() && new DateTime() < $sortie->getDateHeureDebut()) {
+        if ($sortie->getEtat() == $repoEtat->findOneBy(['libelle' => 'Ouverte']) && $sortie->getParticipants()->count() < $sortie->getNbInscriptionsMax() && new DateTime() < $sortie->getDateLimiteInscription()) {
             $sortie->addParticipant($user);
             if ($sortie->getParticipants()->count() >= $sortie->getNbInscriptionsMax()) {
                 $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Cloturée']));
@@ -141,7 +141,7 @@ class SortieController extends AbstractController
      */
     public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
-        if (new DateTime() < $sortie->getDateHeureDebut()) {
+        if (new DateTime() < $sortie->getDateLimiteInscription()) {
             $sortie->removeParticipant($user);
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
             $em->flush();

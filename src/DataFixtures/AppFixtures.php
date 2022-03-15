@@ -140,9 +140,11 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 7; $i++) {
             $sortie = new Sortie();
             $sortie->setNom($this->faker->word);
-            $sortie->setDateHeureDebut($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 10days', $timezone = null));
+            $sortie->setDateHeureDebut($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 10 days', $timezone = null));
             $sortie->setDuree($this->faker->numberBetween($min = 0, $max = 120));
-            $sortie->setDateLimiteInscription($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 10days', $timezone = null));
+            do {
+                $sortie->setDateLimiteInscription($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 10 days', $timezone = null));
+            } while ($sortie->getDateLimiteInscription() > $sortie->getDateHeureDebut());
             $sortie->setNbInscriptionsMax($this->faker->numberBetween($min = 0, $max = 40));
             $sortie->setInfosSortie($this->faker->sentence($nbWords = 10, $variableNbWords = true));
             $sortie->setLieu($this->faker->randomElement($tabLieux));
