@@ -1,7 +1,9 @@
 {% extends 'front.html.twig' %}
 
 
-{% block titre %}{% endblock %}
+{% block titre %}
+Accueil | {{ parent() }}
+{% endblock %}
 
 {% block stylesheets %}
 
@@ -33,15 +35,6 @@
 				</p>
 				<div id="current_date">
 
-<<<<<<< HEAD
-					<script>
-						date = new Date();
-						year = date.getFullYear();
-						month = date.getMonth() + 1;
-						day = date.getDate();
-						document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
-					</script>
-=======
 				<script>
 					date = new Date();
 					year = date.getFullYear();
@@ -50,7 +43,6 @@
 					document.getElementById("current_date").innerHTML = day + "/" + month + "/" + year;
 				</script>		
 				
->>>>>>> b94feee6ecc01996d8b6177ba5197dcbce67aad3
 				</div>
 			</div>
 		</div>

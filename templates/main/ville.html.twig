@@ -2,7 +2,7 @@
 
 
 {% block titre %}
-{{ titre }} | {{ parent() }}
+Ville | {{ parent() }}
 {% endblock %}
 
 
@@ -38,10 +38,43 @@
 
 {% block body %}
 <h1>{{ titre }}</h1>
-<p>
 
-    VILLE
+<br>
+<br>
+<div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mt-4">
+                        <h3>Listes des Campus :</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div style="overflow: scroll; height:250px;">
+                        <table class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-1">Ville</th>
+                                    <th scope="col" class="col-3">Code postal</th>
+                                    <th scope="col" class="col-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in ville %}
+                                    <tr>
+                                        <td>{{ user.nom }}</td>
+                                        <td>{{ user.codePostal }}</td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</p>
 
 {% endblock %}

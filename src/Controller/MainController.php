@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Sortie;
 use App\Form\FiltreType;
 use App\Form\NouvelleSortieType;
@@ -12,6 +13,7 @@ use App\Repository\SortieRepository;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-// /**
-//  * @Route("/profile")
-//  */
+
 class MainController extends AbstractController
 {
     /**
@@ -34,7 +34,7 @@ class MainController extends AbstractController
         $formFiltre->handleRequest($req);
 
         $sorties = $repo->findByFilters($formFiltre, $user);
-        
+
         // foreach ($sorties as $sort) {
         //     $dateFin=new DateTimeImmutable();
         //     $dateFin->createFromMutable($sort->getDateHeureDebut());
@@ -47,7 +47,7 @@ class MainController extends AbstractController
         //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
         //     }
         //     $em->persist($sort);
-            
+
         // }
         // $em->flush();
         return $this->render(
@@ -59,24 +59,25 @@ class MainController extends AbstractController
         );
     }
 
-
     /**
      * @Route("/admin/campus/", name="campus")
      */
-    public function campus(): Response
+    public function campus(CampusRepository $campus): Response
     {
         return $this->render('main/campus.html.twig', [
             'titre' => 'Page campus',
+            'campus' => $campus->findAll(),
         ]);
     }
 
     /**
      * @Route("/admin/ville/", name="ville")
      */
-    public function ville(): Response
+    public function ville(VilleRepository $ville): Response
     {
         return $this->render('main/ville.html.twig', [
             'titre' => 'Page ville',
+            'ville' => $ville->findAll(),
         ]);
     }
 
@@ -139,8 +140,6 @@ class MainController extends AbstractController
             ['formulaire' => $form->createView(),]
         );
     }
-
-
 
     /**
      * @Route("/{id}", name="app_sortie_show", methods={"GET"})
