@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseCampus.html.twig' %}
 
 
 {% block titre %}
@@ -7,6 +7,7 @@ Creer une nouvelle Sortie
 
 
 {% block body %}
+{% form_theme formulaire 'bootstrap_3_layout.html.twig' %}
 	<div class="container col-my">
 		{{ form_start(formulaire)}}
 		<div class="row">

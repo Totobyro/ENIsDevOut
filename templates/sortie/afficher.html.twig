@@ -105,7 +105,8 @@
                                 {% for user in sortie.participants %}
                                     <tr>
                                         <td>{{ user.email }}</td>
-                                        <td>{{ user.nom }}</td>
+                                        <td>	<a class="aHomeOrganisateur" href="{{ path('afficher_profil', {'id': user.id}) }}">{{ user.nom}}
+											{{ user.prenom}}</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

@@ -3,3 +3,14 @@
     margin: auto;
 
 }
+
+#imgProfil{
+    float: left;
+    margin-top: 50px;
+    margin-left: 150px;
+    }
+    #titreProfil {
+        display: flex;
+        justify-content: left;
+        margin-left: 45%;
+    }
