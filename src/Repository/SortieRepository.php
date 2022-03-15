@@ -56,26 +56,31 @@ class SortieRepository extends ServiceEntityRepository
         $filtre = $form->getData();
         $qb = $this->createQueryBuilder('s');
         $qb->select('s');
+        $qb->join('s.etat', 'e');
+        $qb->addSelect('e');
+        $qb->andWhere('(e.libelle LIKE :cree AND s.organisateur = :idorganisateur) OR e.libelle NOT LIKE :cree');
+        $qb->setParameter('cree', '%Crée%');
+        $qb->setParameter('idorganisateur', $user->getId());
+    
 
         if ($form->isSubmitted()) {
-            
-            if ($filtre->getRecherche()!=null && $filtre->getRecherche()!="") {
+
+            if ($filtre->getRecherche() != null && $filtre->getRecherche() != "") {
                 $qb->andWhere('s.nom LIKE :recherche');
                 $qb->setParameter('recherche', '%' . $filtre->getRecherche() . '%');
             }
-            
-            if ($filtre->getCampus()!=null) {
+
+            if ($filtre->getCampus() != null) {
                 $qb->andWhere('s.campus = :idcampus');
                 $qb->setParameter('idcampus', $filtre->getCampus()->getId());
             }
-            
-            if ($filtre->getDateDebut()!=null) {
+
+            if ($filtre->getDateDebut() != null) {
                 $qb->andWhere('s.dateHeureDebut > :dateDebut');
                 $qb->setParameter('dateDebut', $filtre->getDateDebut());
-
             }
 
-            if ($filtre->getDateFin()!=null) {
+            if ($filtre->getDateFin() != null) {
                 $qb->andWhere('s.dateHeureDebut < :dateFin');
                 $qb->setParameter('dateFin', $filtre->getDateFin());
             }

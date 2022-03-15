@@ -8,10 +8,9 @@
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 
 	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-
 	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
 	<link href="{{ asset ('assets/css/bootstrap-theme2.css')}}" rel="stylesheet">
-	<link href="{{ asset ('assets/css/main6.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/main8.css')}}" rel="stylesheet">
 {% endblock %}
 
 
@@ -30,10 +29,11 @@
 				<!-- Récupération de la date du jour à aligner display inline block -->
 
 				<p id="datedujour">
-					Date du jour :
+					Date du jour : 
 				</p>
 				<div id="current_date">
 
+<<<<<<< HEAD
 					<script>
 						date = new Date();
 						year = date.getFullYear();
@@ -41,6 +41,16 @@
 						day = date.getDate();
 						document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
 					</script>
+=======
+				<script>
+					date = new Date();
+					year = date.getFullYear();
+					month = date.getMonth() + 1;
+					day = date.getDate();
+					document.getElementById("current_date").innerHTML = day + "/" + month + "/" + year;
+				</script>		
+				
+>>>>>>> b94feee6ecc01996d8b6177ba5197dcbce67aad3
 				</div>
 			</div>
 		</div>
@@ -49,9 +59,11 @@
 		<div class="row">
 			<div class="col-sm-10"></div>
 			<div class="col-sm-2" id="Participant">
-				Participant :
-				{{ app.user.nom }}
-				{{ app.user.prenom }}
+				<strong>Participant</strong> :
+				<span style="color:red;"><strong> 
+					{{ app.user.nom }}
+					{{ app.user.prenom }} 
+				</strong><span>
 			</div>
 		</div>
 
@@ -103,7 +115,7 @@
 
 				<div class="col-sm-3" id="zoneBtnRecherche">
 					<div class="text-center">
-						<button type="submit" class="btn btn-warning">Recherche</button>
+						<button type="submit" class="btn btn-primary">Rechercher</button>
 					</div>
 				</div>
 				{{ form_end(filtre)}}
@@ -124,7 +136,7 @@
 							<th>Clotûre</th>
 							<th>Inscrit/place</th>
 							<th>Etat</th>
-							<th>Inscrit</th>
+							<th>Durée en mn</th>
 							<th>Organisateur</th>
 							<th>Actions</th>
 						</tr>
@@ -132,43 +144,51 @@
 					<tbody class="classementTableauTbody">
 						{% for s in tableauSortie %}
 							<tr>
-
-								<td>{{ s.nom}}</td>
-								<td>{{ s.dateHeureDebut|date('d-m-Y H:i') }}</td>
-								<td>{{ s.dateLimiteInscription|date('d-m-Y') }}</td>
-								<td>
-									{{s.getParticipants|length}}/{{ s.nbInscriptionsMax}}</td>
-								<td>{{ s.etat.libelle}}</td>
-								<td>{{ s.duree}}</td>
-								{# Ajouter seulement la 1ere lettre du prénom #}
-
-								<td>
-									<a href="{{ path('afficher_profil', {'id': s.organisateur.id}) }}">{{ s.organisateur.nom}}
-										{{ s.organisateur.prenom}}</a>
-								</td>
-
-								{% if app.user == s.organisateur %}
+									<td>{{ s.nom}}</td>
+									<td>{{ s.dateHeureDebut|date('d-m-Y H:i') }}</td>
+									<td>{{ s.dateLimiteInscription|date('d-m-Y') }}</td>
 									<td>
-										<a href="{{ path('modifier_sortie',{'id' : s.id })}}">Modifier</a>  
-										<a href="{{ path('annulerSortie',{'id' : s.id })}}">Annuler</a> 
-									</td>
-								{% else %}
-									{% if app.user.nom in s.participants  %}
-										<td>
-											<a href="{{ path('desinscrire',{'id' : s.id })}}">Desinscrire</a>
-										{% else %}
-											<td>
-												<a href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a>
+										{{s.getParticipants|length}}/{{ s.nbInscriptionsMax}}</td>
+									<td>{{ s.etat.libelle}}</td>
+									<td>{{ s.duree}}</td>
+									{# Ajouter seulement la 1ere lettre du prénom #}
 
-											{% endif %}
-										{% endif %}
-										<a href="{{ path('afficher_sortie', {'id': s.id}) }}">Afficher</a>
+									<td>
+										<a class="aHomeOrganisateur" href="{{ path('afficher_profil', {'id': s.organisateur.id}) }}">{{ s.organisateur.nom}}
+											{{ s.organisateur.prenom}}</a>
 									</td>
-									{# <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btn-success">
-																											                                <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btnClassement">
-																											                                <i class="fa fa-eye" aria-hidden="true"></i> 
-																											                                </a>
-																											                            </td> #}
+									<td>
+										<a class="btnIcon btn-success" href="{{ path('afficher_sortie', {'id': s.id}) }}" title="Afficher">
+											<i class="fa fa-eye"></i>
+                    					</a>
+											{% if app.user == s.organisateur %}
+												<a class="btnIcon btn-warning" href="{{ path('modifier_sortie',{'id' : s.id })}}" title="Modifier">
+                    								<i class="fa fa-edit"></i>
+                    							</a>
+
+												<a class="btnIcon btn-danger" href="{{ path('annulerSortie',{'id' : s.id })}}" title="Annuler la Sortie">
+													<i class="fa fa-trash"></i>
+												</a>
+
+											{% else %}
+												{% if app.user.nom in s.participants  %}
+												<a onclick="return confirm('{{ app.user.prenom }} {{ app.user.nom }}, voulez vous vous annuler votre présence à la sortie : {{ s.nom }} ?')"
+												class="btnIcon btn-primary" 
+												href="{{ path('desinscrire',{'id' : s.id })}}" title="Se désinscrire">
+													<i class="fa fa-ban"></i>
+												</a>
+
+												{% else %}
+													{# <button class="buttonHome btn-info">
+														<a class="aHome" href="{{ path('inscrire',{'id' : s.id })}}">S'inscrire</a>
+													</button> #}
+													<a class="btnIcon btn-info" href="{{ path('inscrire',{'id' : s.id })}}" title="S'inscrire">
+                    									<i class="fa fa-check"></i>
+                    								</a>
+												{% endif %}
+											{% endif %}
+									</td>
+										{# <a href="{{ path('detail_classement',{id:j.id})}}" class="btn btn-success">																					                            </td> #}
 								</tr>
 							{% endfor %}
 						</tbody>
@@ -190,7 +210,8 @@
 			<div class="d-grid gap-2 col-6 mx-auto">
 				<div class="text-center">
 					<a href="{{ path('creersortie')}}">
-						<button class="btn btn-success" type="button">
+					<br><br>
+						<button class="btn btn-primary" type="button">
 							Créer une sortie
 						</button>
 					</a>

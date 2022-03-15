@@ -116,6 +116,7 @@ h2,
 h3,
 .h3 {
   margin-top: 30px;
+  color: #bd2424;
 }
 blockquote {
   font-style: italic;
@@ -278,19 +279,54 @@ img.pull-left {
 }
 
 #ZoneFiltre1 {
-
   margin-left: 10px;
-  
-  }
-  
-  #ZoneFiltre2 {
-  
+}
+
+#ZoneFiltre2 {
   margin-left: 80px;
-  
-  }
+}
 
-  #dateDuJour{
+#dateDuJour {
+  align-content: end;
+  display: flex;
+}
 
-    align-content: end;
-    display: flex;
-  }
+.buttonHome {
+  padding: 7px 13px 7px 13px;
+  border-radius: 50%;
+}
+.buttonHome:hover {
+  text-decoration-color: rgba(0, 0, 0, 0.726);
+  text-decoration: none;
+  transition: 0.9s;
+}
+
+.aHome {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+.aHomeOrganisateur {
+  color: black;
+  text-decoration: none;
+}
+.aHomeOrganisateur:hover {
+  color: red;
+  text-decoration: none;
+  transition: 0.8s;
+}
+.aHome:hover {
+  color: rgba(0, 0, 0, 0.726);
+  text-decoration: none;
+  transition: 0.9s;
+}
+
+.btnIcon {
+  padding: 10px 15px;
+  font-weight: bold;
+  border: 0 none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin-right: 3px;
+}
