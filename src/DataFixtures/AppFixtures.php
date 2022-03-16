@@ -151,9 +151,11 @@ class AppFixtures extends Fixture
             $sortie->setInfosSortie($this->faker->sentence($nbWords = 10, $variableNbWords = true));
             $sortie->setLieu($this->faker->randomElement($tabLieux));
             if ($sortie->getDateLimiteInscription() > new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
-                $sortie->setEtat($tabEtats->findOneBy(['libelle' => 'Ouverte']));
+                $sortie->setEtat($tabEtats->findOneBy(array('libelle' => 'Ouverte')));
             }elseif ($sortie->getDateHeureDebut() < new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
-                $sortie->setEtat($tabEtats->findOneBy(['libelle' => 'Passée']));
+                $sortie->setEtat($tabEtats->findOneBy(array('libelle' => 'Passée')));
+            }else{
+                $sortie->setEtat($tabEtats->findOneBy(array('libelle' => 'Cloturée')));
             }
             $sortie->setCampus($this->faker->randomElement($tabCampus));
             $sortie->setOrganisateur($this->faker->randomElement($tabParticipants));
