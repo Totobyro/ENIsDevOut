@@ -176,7 +176,7 @@ class SortieController extends AbstractController
 
         $formulaireAnnuler->handleRequest($request);
 
-        if ($formulaireAnnuler->isSubmitted() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
+        if ($formulaireAnnuler->isSubmitted() && new DateTime() < $sortie->getDateHeureDebut()) {
 
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Annulée']));
 
@@ -184,8 +184,8 @@ class SortieController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('home');
-        } else {
-            $this->addFlash('danger', "Tu ne peux plus modifier ta sortie");
+        } elseif($formulaireAnnuler->isSubmitted()) {
+            $this->addFlash('danger', "Tu ne peux plus annuler ta sortie");
         }
 
         return $this->renderForm('sortie/annulerSortie.html.twig', [
