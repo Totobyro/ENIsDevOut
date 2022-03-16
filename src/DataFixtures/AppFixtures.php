@@ -139,22 +139,22 @@ class AppFixtures extends Fixture
         $tabCampus = $this->manager->getRepository(Campus::class)->findAll();
         $tabParticipants = $this->manager->getRepository(Participant::class)->findAll();
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $sortie = new Sortie();
             $sortie->setNom($this->faker->word);
-            $sortie->setDateHeureDebut($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 10 days', $timezone = 'Europe/Paris'));
+            $sortie->setDateHeureDebut($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 40 days', $timezone = 'Europe/Paris'));
             $sortie->setDuree($this->faker->numberBetween($min = 0, $max = 120));
             do {
-                $sortie->setDateLimiteInscription($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 10 days', $timezone = 'Europe/Paris'));
+                $sortie->setDateLimiteInscription($this->faker->dateTimeBetween($startDate = '- 10 days', $endDate = '+ 40 days', $timezone = 'Europe/Paris'));
             } while ($sortie->getDateLimiteInscription() > $sortie->getDateHeureDebut());
             $sortie->setNbInscriptionsMax($this->faker->numberBetween($min = 0, $max = 40));
             $sortie->setInfosSortie($this->faker->sentence($nbWords = 10, $variableNbWords = true));
             $sortie->setLieu($this->faker->randomElement($tabLieux));
             if ($sortie->getDateLimiteInscription() > new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
                 $sortie->setEtat($tabEtats->findOneBy(array('libelle' => 'Ouverte')));
-            }elseif ($sortie->getDateHeureDebut() < new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
+            } elseif ($sortie->getDateHeureDebut() < new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
                 $sortie->setEtat($tabEtats->findOneBy(array('libelle' => 'Passée')));
-            }else{
+            } else {
                 $sortie->setEtat($tabEtats->findOneBy(array('libelle' => 'Cloturée')));
             }
             $sortie->setCampus($this->faker->randomElement($tabCampus));
