@@ -8,6 +8,8 @@ use App\Entity\Lieu;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -133,7 +135,7 @@ class AppFixtures extends Fixture
     public function addSorties()
     {
         $tabLieux = $this->manager->getRepository(Lieu::class)->findAll();
-        $tabEtats = $this->manager->getRepository(Etat::class)->findAll();
+        $tabEtats = $this->manager->getRepository(Etat::class);
         $tabCampus = $this->manager->getRepository(Campus::class)->findAll();
         $tabParticipants = $this->manager->getRepository(Participant::class)->findAll();
 
@@ -148,7 +150,11 @@ class AppFixtures extends Fixture
             $sortie->setNbInscriptionsMax($this->faker->numberBetween($min = 0, $max = 40));
             $sortie->setInfosSortie($this->faker->sentence($nbWords = 10, $variableNbWords = true));
             $sortie->setLieu($this->faker->randomElement($tabLieux));
-            $sortie->setEtat($this->faker->randomElement($tabEtats));
+            if ($sortie->getDateLimiteInscription() > new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
+                $sortie->setEtat($tabEtats->findOneBy(['libelle' => 'Ouverte']));
+            }elseif ($sortie->getDateHeureDebut() < new DateTime('now', new DateTimeZone('Europe/Madrid'))) {
+                $sortie->setEtat($tabEtats->findOneBy(['libelle' => 'Passée']));
+            }
             $sortie->setCampus($this->faker->randomElement($tabCampus));
             $sortie->setOrganisateur($this->faker->randomElement($tabParticipants));
             $sortie->addParticipant($sortie->getOrganisateur());
