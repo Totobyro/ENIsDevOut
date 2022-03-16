@@ -51,12 +51,19 @@
 			</div>
 
 			{#<div class="col-4">
-							{{ form_row(form.lieu.latitude) }}
-						</div>	
-						<div class="col-4">
-							{{ form_row(form.longitude) }}
-						</div>	 #}
+										{{ form_row(form.lieu.latitude) }}
+									</div>	
+									<div class="col-4">
+										{{ form_row(form.longitude) }}
+									</div>	 #}
 
+			<div class="row">
+				{% for message in app.flashes('danger') %}
+					<div class="alert alert-danger">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
 
 		</div>
 		{{ form_end(form)}}

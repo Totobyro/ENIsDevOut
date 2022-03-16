@@ -34,7 +34,7 @@ class SortieController extends AbstractController
 
         $form->handleRequest($req);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $sortie->getDateHeureDebut() > $sortie->getDateLimiteInscription()) {
 
             if ($form->get('save')->isClicked()) {
 
@@ -64,6 +64,8 @@ class SortieController extends AbstractController
                     return $this->redirectToRoute('home');
                 }
             }
+        }elseif($form->isSubmitted()) {
+            $this->addFlash('danger', "Ta date de sortie doit être supérieur à la date de cloture d'inscription");
         }
         return $this->render(
             'sortie/creersortie.html.twig',
@@ -94,6 +96,7 @@ class SortieController extends AbstractController
 
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid() && $sortie->getDateHeureDebut() > $sortie->getDateLimiteInscription()) {
 
         if ($form->get('save')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
 
@@ -105,14 +108,12 @@ class SortieController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('home');
-        }
-        if ($form->get('delete')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
+        }elseif ($form->get('delete')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
 
             $sortieRepository->remove($sortie);
 
             return $this->redirectToRoute('home');
-        } else {
-            if ($form->get('publish')->isClicked()) {
+        } elseif ($form->get('publish')->isClicked()) {
                 // set etat à l'id 2 -> Sortie crée (Publiée)
                 $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
                 //set l'id d'oragnisateur à l'id du current
@@ -123,6 +124,8 @@ class SortieController extends AbstractController
 
                 return $this->redirectToRoute('home');
             }
+        }elseif($form->isSubmitted()) {
+            $this->addFlash('danger', "Ta date de sortie doit être supérieur à la date de cloture d'inscription");
         }
 
         return $this->renderForm('sortie/modifier.html.twig', [

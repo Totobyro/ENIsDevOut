@@ -51,16 +51,21 @@
 		</div>
 
 		{# <div class="col-6">
-						{{ form_row(formulaire.brochure) }}
-					</div> #}
+								{{ form_row(formulaire.brochure) }}
+							</div> #}
 	</div>
 
+	<div class="row">
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+	</div>
 
 	{{ form_end(formulaire)}}
 
 </div>
 <a href="{{ path('home')}}">
 	<button class="btn btn-danger">Retour</button>
-</a>
-
-{% endblock %}
+</a>{% endblock %}
