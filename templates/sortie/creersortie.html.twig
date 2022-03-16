@@ -2,12 +2,12 @@
 
 
 {% block titre %}
-Creer une nouvelle Sortie
+	Creer une nouvelle Sortie
 {% endblock %}
 
 
 {% block body %}
-{% form_theme formulaire 'bootstrap_3_layout.html.twig' %}
+	{% form_theme formulaire 'bootstrap_3_layout.html.twig' %}
 	<div class="container col-my">
 		{{ form_start(formulaire)}}
 		<div class="row">
@@ -15,52 +15,52 @@ Creer une nouvelle Sortie
 				{{ form_row(formulaire.nom) }}
 			</div>
 			<div class="col-6">
-			  <label for="campus">Campus</label></br>
-			  {{app.User.campus}}
+				<label for="campus">Campus</label>
+			</br>
+			{{app.User.campus}}
 
 
-				{# {{ form_row(formulaire.campus) }} #}
-			</div>
+			{# {{ form_row(formulaire.campus) }} #}
 		</div>
-		<div class="row">
-			<div class="col-6">
-				{{ form_row(formulaire.dateHeureDebut) }}
-			</div>
-			<div class="col-6">
-				{{ form_row(formulaire.lieu) }}
-			</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			{{ form_row(formulaire.dateHeureDebut) }}
+		</div>
+		<div class="col-6">
+			{{ form_row(formulaire.lieu) }}
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-6">
+			{{ form_row(formulaire.dateLimiteInscription) }}
 		</div>
 
-		<div class="row">
-			<div class="col-6">
-				{{ form_row(formulaire.dateLimiteInscription) }}
-			</div>
-			
-			<div class="col-6">
-				{{ form_row(formulaire.nbInscriptionsMax) }}
-			</div>
-
+		<div class="col-6">
+			{{ form_row(formulaire.nbInscriptionsMax) }}
 		</div>
-		<div class="row">
-			<div class="col-6">
-				{{ form_row(formulaire.duree) }}
-			</div>
-			<div class="col-6">
-				{{ form_row(formulaire.infosSortie) }}
-			</div>
 
-			{# <div class="col-6">
-				{{ form_row(formulaire.brochure) }}
-			</div> #}
+	</div>
+	<div class="row">
+		<div class="col-6">
+			{{ form_row(formulaire.duree) }}
 		</div>
-            
-           
-		{{ form_end(formulaire)}}
-	
+		<div class="col-6">
+			{{ form_row(formulaire.infosSortie) }}
+		</div>
+
+		{# <div class="col-6">
+						{{ form_row(formulaire.brochure) }}
+					</div> #}
+	</div>
+
+
+	{{ form_end(formulaire)}}
+
 </div>
 <a href="{{ path('home')}}">
-			<button class="btn btn-danger">Retour</button>
-		</a>
-    
+	<button class="btn btn-danger">Retour</button>
+</a>
 
 {% endblock %}
