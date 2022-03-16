@@ -20,14 +20,10 @@
 
     </head>
     <body>
-    {# créer une variable dans twig #}
+    {# créer une variable dans twig pour surbriller l'onglet en question #}
     {%
     set r = app.request.get('_route')
     %}
-
-    {# {%
-    set role = $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
-    %} #}
 
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

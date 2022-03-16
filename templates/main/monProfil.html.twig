@@ -1,5 +1,4 @@
-
-{% extends 'frontMonProfil.html.twig' %}
+{% extends 'baseMonProfilAnnuler.html.twig' %}
 
 
 {% block titre %}
@@ -8,17 +7,30 @@
 	{{ parent() }}
 {% endblock %}
 
-    {% block stylesheets %}
+{% block stylesheets %}
 
-<link href="{{ asset ('monProfilStyle2.css')}}" rel="stylesheet">
-	{% endblock %}
+	<link href="{{ asset ('assets/css/monProfil.css')}}" rel="stylesheet">
+
+{% endblock %}
 
 
 {% block body %}
-<div class="container-fluid text-center">
+
+	<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">MON PROFIL</h1>
+
+				<br><br>
+
+			</div>
+		</div>
+	</header>
+
+	<div class="container-fluid text-center">
 		<div class="col-2" id="imgProfil">
 			<img src="{{ asset('img/' ~ participant.brochureFilename) }}"></img>
-		</div>
+	</div>
 
 	<div class="col-12" id="titreProfil">
 		<h2>{{ titre }}</h2>
@@ -26,36 +38,32 @@
 	<br>
 	<div class="formulaire">
 		{{ form_start(participantForm)}}
-		
+
 		{{ form_row(participantForm.pseudo) }}
-			
+
 		{{ form_row(participantForm.prenom) }}
-			
+
 		{{ form_row(participantForm.nom) }}
-		
+
 		{{ form_row(participantForm.telephone) }}
-				
+
 		{{ form_row(participantForm.email) }}
-				
+
 		{{ form_row(participantForm.password) }}
-			
+
 		{{ form_row(participantForm.campus) }}
 
 		{{ form_row(participantForm.brochure) }}
 	</div>
-		<div class="col-4 my-6">
-			
-				<button class="btn btn-info" type="submit">Modifier</button>
-				{{ form_end(participantForm)}}
-		</div>
-		<div class="col-4">
-				<a href="{{ path('home')}}">
-				<button class="btn btn-danger">Retour</button>
-		</div>
-			</a>
-			
-		</div>
-	</div>
-</div>
+	<div class="col-4 my-6">
 
-{% endblock %}
+		<button class="btn btn-info" type="submit">Modifier</button>
+		{{ form_end(participantForm)}}
+	</div>
+	<div class="col-4">
+		<a href="{{ path('home')}}">
+			<button class="btn btn-danger">Retour</button>
+		</div>
+	</a>
+
+</div></div></div>{% endblock %}

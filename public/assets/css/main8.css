@@ -329,4 +329,5 @@ img.pull-left {
   -moz-border-radius: 3px;
   border-radius: 3px;
   margin-right: 3px;
+  display: table-cell;
 }

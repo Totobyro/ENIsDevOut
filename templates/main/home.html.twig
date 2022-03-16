@@ -1,4 +1,4 @@
-{% extends 'front.html.twig' %}
+{% extends 'baseAccueil.html.twig' %}
 
 
 {% block titre %}
@@ -14,6 +14,20 @@ Accueil | {{ parent() }}
 	<link href="{{ asset ('assets/css/bootstrap-theme2.css')}}" rel="stylesheet">
 	<link href="{{ asset ('assets/css/main8.css')}}" rel="stylesheet">
 {% endblock %}
+
+
+{% block header %}
+<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">ENI's Dev Out</h1>
+				<p class="tagline">WE ESCAPE : logiciel de sorties et loisirs pour les étudiants de l'<a href="https://www.eni-ecole.fr/" target="_blank">ENI</a></p>
+					<a href="{{ path ('coucou') }}" target="_blank" class="btn btn-primary btn-lg">Rejoins la team</a>
+				</div>
+		</div>
+	</header>
+{% endblock %}
+
 
 
 {% block body %}

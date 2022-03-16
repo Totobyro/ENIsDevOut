@@ -1,19 +1,18 @@
-{% extends 'frontMonProfil.html.twig' %}
+{% extends 'baseMonProfilAnnuler.html.twig' %}
 
 
 {% block titre %}
-Modifier une Sortie
+	Modifier une Sortie
 {% endblock %}
 
 
 {% block body %}
 
-<div class="container col-my">
-<h1>Modifier une Sortie</h1>
+	<div class="container col-my">
+		<h1>Modifier une Sortie</h1>
 
 
-
-	{{ form_start(form)}}
+		{{ form_start(form)}}
 
 		<div class="row">
 			<div class="col-4">
@@ -39,40 +38,24 @@ Modifier une Sortie
 			</div>
 			<div class="col-4">
 				{{ form_row(form.lieu) }}
-			</div>	
-			
-			
-			<div class="col-4">
-				Rue : {{ sortie.lieu.rue }}
-			</div>	
-			<div class="col-4">
-				Code postal : {{ sortie.lieu.ville.codePostal }}
-			</div>	
+			</div>
 
+
+			<div class="col-4">
+				Rue :
+				{{ sortie.lieu.rue }}
+			</div>
+			<div class="col-4">
+				Code postal :
+				{{ sortie.lieu.ville.codePostal }}
+			</div>
 
 			{#<div class="col-4">
-				{{ form_row(form.lieu.latitude) }}
-			</div>	
-			<div class="col-4">
-				{{ form_row(form.longitude) }}
-			</div>	 #}
-
-
-		{# <div class="container col-my">
-		<br><br>
-			<button class="btn btn-info" type="submit">
-				Enregistrer
-			</button>
-
-			<button class="btn btn-success" type="submit">
-				Publier la sortie (Enregistrer)
-			</button>
-
-			<button class="btn btn-warning" type="submit">
-				Supprimer la sortie
-			</button>
-
-		</div>	 #}
+							{{ form_row(form.lieu.latitude) }}
+						</div>	
+						<div class="col-4">
+							{{ form_row(form.longitude) }}
+						</div>	 #}
 
 
 		</div>
@@ -84,9 +67,7 @@ Modifier une Sortie
 			</button>
 		</a>
 
-		
-</div>
+
+	</div>
 
 {% endblock %}
-
-

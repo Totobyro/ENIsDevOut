@@ -61,7 +61,7 @@ class SortieRepository extends ServiceEntityRepository
         $qb->andWhere('(e.libelle LIKE :cree AND s.organisateur = :idorganisateur) OR e.libelle NOT LIKE :cree');
         $qb->setParameter('cree', '%Crée%');
         $qb->setParameter('idorganisateur', $user->getId());
-    
+
 
         if ($form->isSubmitted()) {
 

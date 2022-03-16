@@ -4348,10 +4348,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .label {
   display: inline;
   padding: 0.2em 0.6em 0.3em;
-  font-size: 75%;
+  font-size: 100%;
   font-weight: 700;
   line-height: 1;
-  color: #fff;
+  color: black;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;

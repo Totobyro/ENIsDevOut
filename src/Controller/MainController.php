@@ -35,7 +35,7 @@ class MainController extends AbstractController
 
         $sorties = $repo->findByFilters($formFiltre, $user);
 
-        
+
         return $this->render(
             'main/home.html.twig',
             [
@@ -74,65 +74,6 @@ class MainController extends AbstractController
     {
         return $this->render('main/coucou.html.twig', [
             'titre' => 'Page coucou',
-        ]);
-    }
-
-    /**
-     * @Route("/profile/creersortie/", name="creersortie")
-     * 
-     */
-    public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository $repoEtat, UserInterface $user, CampusRepository $repoCampus): Response
-    {
-        $sortie = new Sortie();
-        $sortie->addParticipant($user);
-        $form = $this->createForm(NouvelleSortieType::class, $sortie);
-
-        $form->handleRequest($req);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            if ($form->get('save')->isClicked()) {
-
-                // set etat -> Sortie crée (Enregistrée)
-                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
-                //set l'id d'oragnisateur à l'id du current
-                $sortie->setOrganisateur($user);
-                //set l'id du campus à celui du User
-                $sortie->setCampus($repoCampus->find($user->getCampus()->getId()));
-
-                $em->persist($sortie);
-                $em->flush();
-
-                return $this->redirectToRoute('home');
-            } else {
-                if ($form->get('publish')->isClicked()) {
-                    // set etat -> Sortie crée (Publiée)
-                    $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
-                    //set l'id d'oragnisateur à l'id du current
-                    $sortie->setOrganisateur($user);
-                    //set l'id du campus à celui du User
-                    $sortie->setCampus($repoCampus->find($user->getCampus()->getId()));
-
-                    $em->persist($sortie);
-                    $em->flush();
-
-                    return $this->redirectToRoute('home');
-                }
-            }
-        }
-        return $this->render(
-            'main/creersortie.html.twig',
-            ['formulaire' => $form->createView(),]
-        );
-    }
-
-    /**
-     * @Route("/{id}", name="app_sortie_show", methods={"GET"})
-     */
-    public function show(Sortie $sortie): Response
-    {
-        return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
         ]);
     }
 }

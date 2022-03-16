@@ -1,82 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+    <title>
            {% block titre %} ENI's Dev Out!
            {% endblock %}
-        </title>
-        <!-- Favicon-->
-        <!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </title>
+	<link rel="shortcut icon" href="assets/images/sepq.jpg">
+	
+	<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+	
+    <link href="{{ asset ('assets/css/bootstrap-theme2.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/main6.css')}}" rel="stylesheet">v
+	
 
-        {% block stylesheet %}
-        {% endblock %}
+{% block stylesheets %}       
+{% endblock %}
+ 
+</head>
 
-    </head>
-    <body>
-    {# créer une variable dans twig #}
-    {%
-    set r = app.request.get('_route')
-    %}
+<body class="home">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="{{ path('home')}}"><img src="{{ asset('img/logoSortie.png')}}" width="100" alt="logo"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					
+					{# PERMET D'AFFICHER LES ONGLETS VILLES ET CAMPUS DANS NAV SI ON EST ADMIN. SI USER PAS VISIBLE #}
+					{% if is_granted("ROLE_ADMIN") %}
 
-    {# {%
-    set role = $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
-    %} #}
+					<li class="dropdown">
+						<a href="{{ path('ville')}}">Villes</a><b class="caret"></b></a>
+					</li>
+					<li class="dropdown">
+						<a href="{{ path('campus')}}">Campus</a><b class="caret"></b></a>
+					</li>
+					{% endif %}
 
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-5">
-                <a class="navbar-brand" href="{{ path('home')}}">
-                <img src="{{ asset('img/logoSortie.png')}}" width="100" alt="logo">
-                Eni's Dev Out!</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        
-                        <li class="nav-item">
-                        <a class="nav-link  {% if r == 'ville' %}active{% endif %}"  
-                        href="{{ path('ville')}}">Villes</a></li>
-                        <li class="nav-item">
-                        <a class="nav-link  {% if r == 'campus' %}active{% endif %}"  
-                        href="{{ path('campus')}}">Campus</a></li>
 
-                        <li class="nav-item"><a 
-                        class="nav-link {% if r == 'home' %}active{% endif %}"                       
-                        href="{{ path('home')}}">Accueil</a></li>
-                        <li class="nav-item"><a 
-                        class="nav-link {% if r == 'modifier' %}active{% endif %}" 
-                        href="{{ path('participant_modifier',{id:app.user.id })}}"
-                        >Mon profil</a></li>
-                        <li class="nav-item">
-                        <a class="nav-link {% if r == 'app_login' %}active{% endif %}" 
-                        href="{{ path('app_logout')}}"> Se déconnecter </a></li>
-                        {# <li class="nav-item">
-                        <a class="nav-link  {% if r == 'service' %}active{% endif %}"  
-                        href="{{ path('service')}}">Services</a></li> #}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page Content-->
-        <div class="container px-4 px-lg-5">
-        {# <h2>{{ r }}</h2> #}
-           {% block body %}
-           {% endblock %}
-           
-        </div>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-       
-    </body>
+					<li class="dropdown">
+						<a href="{{ path('home')}}">Accueil</a><b class="caret"></b></a>
+					</li>
+					<li class="dropdown">
+						<a href="{{ path('participant_modifier',{id:app.user.id })}}">Mon profil</a>
+					</li>
+					<li class="dropdown">
+						<a class="btn" href="{{ path ('app_logout') }}">DECONNEXION</a><b class="caret"></b></a>
+					</li>
+
+				
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+	<!-- Header -->
+	{% block header %}
+
+	{# <header id="head">
+		<div class="container">
+			<div class="row"> #}
+{% endblock %}
+
+
+{% block titrePhoto %}
+{% endblock %}
+
+				{# <h1 class="lead">ENI's Dev Out</h1>
+				<p class="tagline">WE ESCAPE : logiciel de sorties et loisirs pour les étudiants de l'<a href="https://www.eni-ecole.fr/" target="_blank">ENI</a></p> #}
+				 <br><br>
+				 {# <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> #}
+					{# <a href="#ancre" class="btn btn-primary btn-lg">Rejoins-nous</a> #}
+
+				</div>
+		</div>
+	</header> 
+	<!-- /Header -->
+
+
+    <!-- Intro -->
+	<div class="container text-center">
+		<br> <br>
+		{# <h2 class="thin">Mon profil</h2> #}
+	</div>
+    <br><br>
+		
+
+   {% block body %}
+
+    {% endblock %}
+
+
+
+	<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">		
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Follow us</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a href=""><i class="fa fa-linkedin fa-2"></i></a>
+								{# <a href=""><i class="fa fa-dribbble fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-facebook fa-2"></i></a> #}
+							</p>
+                            <p class="membre">
+								<a href="https://www.linkedin.com/in/thomas-guerin-074433146/" target="_blank">Toto</a>
+								<a href="https://www.linkedin.com/in/baptiste-guillon-138054107/" target="_blank">Baba</a>
+								<a href="https://www.linkedin.com/in/malo-ford-a0b32a1b0/" target="_blank">Malo</a>
+							</p>		
+						</div>
+					</div>
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+				</div> <!-- /row of widgets -->
+			</div>
+		</div> 
+	</footer>	
+		
+
+
+
+
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	{# <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/headroom.min.js"></script>
+	<script src="assets/js/jQuery.headroom.min.js"></script>
+	<script src="assets/js/template.js"></script> #}
+
+	<script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')}}"></script>
+	<script src="{{ asset('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js')}}"></script>
+	<script src="{{ asset('assets/js/headroom.min.js')}}"></script>
+	<script src="{{ asset('assets/js/jQuery.headroom.min.js')}}"></script>
+	<script src="{{ asset('assets/js/template.js')}}"></script>
+
+
+</body>
 </html>
-

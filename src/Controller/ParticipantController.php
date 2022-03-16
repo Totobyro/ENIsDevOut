@@ -15,15 +15,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ParticipantController extends AbstractController
 {
-    /**
-     * @Route("/participant", name="app_participant")
-     */
-    public function index(): Response
-    {
-        return $this->render('participant/index.html.twig', [
-            'controller_name' => 'ParticipantController',
-        ]);
-    }
 
     /**
      * @Route("/modifier/{id}", name="participant_modifier")
@@ -38,15 +29,15 @@ class ParticipantController extends AbstractController
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
 
-        // cette condition est nécessaire car le champ 'brochure' n'est pas obligatoire
-        // donc le fichier PDF doit être traité uniquement lorsqu'un fichier est téléchargé
+            // cette condition est nécessaire car le champ 'brochure' n'est pas obligatoire
+            // donc le fichier PDF doit être traité uniquement lorsqu'un fichier est téléchargé
             if ($brochureFile) {
                 $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-        // ceci est nécessaire pour inclure en toute sécurité le nom du fichier dans l'URL
+                // ceci est nécessaire pour inclure en toute sécurité le nom du fichier dans l'URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
 
-        // Déplacer le fichier dans le répertoire où sont stockées les brochures
+                // Déplacer le fichier dans le répertoire où sont stockées les brochures
                 try {
                     $brochureFile->move(
                         $this->getParameter('brochures_directory'),
@@ -56,8 +47,8 @@ class ParticipantController extends AbstractController
                     // ... gérer l'exception si quelque chose se passe pendant le téléchargement du fichier
                 }
 
-        // met à jour la propriété 'brochureFilename' pour stocker le nom du fichier PDF
-        // au lieu de son contenu
+                // met à jour la propriété 'brochureFilename' pour stocker le nom du fichier PDF
+                // au lieu de son contenu
                 $participant->setBrochureFilename($newFilename);
             }
 
@@ -83,12 +74,11 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/afficherProfil/{id}", name="afficher_profil")
      */
-    public function afficher_profil( Participant $p):Response{
+    public function afficher_profil(Participant $p): Response
+    {
 
         return $this->render('participant/afficherParticipant.html.twig', [
             'participant' => $p,
         ]);
-
     }
-
 }

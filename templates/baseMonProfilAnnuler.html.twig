@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Sergey Pozhilov (GetTemplate.com)">
+
+		<title>
+			{% block titre %}
+				ENI's Dev Out!
+			{% endblock %}
+		</title>
+		<link rel="shortcut icon" href="assets/images/sepq.jpg">
+
+
+		<link
+		rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+
+
+		<!-- Custom styles for our template -->
+		<link href="{{ asset ('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="{{ asset ('assets/css/font-awesome.min.css')}}" rel="stylesheet">
+
+		<link href="{{ asset ('assets/css/bootstrap-theme2.css')}}" rel="stylesheet">
+		<link href="{{ asset ('assets/css/mainProfil.css')}}" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+			<![endif]-->
+		</head>
+
+		<body
+			class="home">
+			<!-- Fixed navbar -->
+			<div class="navbar navbar-inverse navbar-fixed-top headroom">
+				<div class="container">
+					<div
+						class="navbar-header">
+						<!-- Button for smallest screens -->
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ path('home')}}"><img src="{{ asset('img/logoSortie.png')}}" width="100" alt="logo"></a>
+					</div>
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav pull-right">
+							<!-- <li class="active"><a href="#">Home</a></li> -->
+
+							{# PERMET D'AFFICHER LES ONGLETS VILLES ET CAMPUS DANS NAV SI ON EST ADMIN. SI USER PAS VISIBLE #}
+								{% if is_granted("ROLE_ADMIN") %}
+
+									<li class="dropdown"> <a href="{{ path('ville')}}">Villes</a>
+									<b class="caret"></b>
+								</li>
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="{{ path('campus')}}">Campus</a>
+							<b class="caret"></b>
+						</li>
+					</a>
+				</li>
+			{% endif %}
+
+
+			<li class="dropdown">
+				<a href="{{ path('home')}}">Accueil</a>
+				<b class="caret"></b>
+			</li>
+		</body>
+	</html>
+</a></li><li class="dropdown">
+<a href="{{ path('participant_modifier',{id:app.user.id })}}">Mon profil</a></li><li class="dropdown">
+<a class="btn" href="{{ path ('app_logout') }}">DECONNEXION</a>
+<b class="caret"></b></li></a></li></ul></div><!--/.nav-collapse --></div></div><!-- /.navbar --><!-- Header --><!-- /Header --><!-- Intro --><div class="container text-center"> <br><br></div><br><br>{% block body %}{% endblock %}<footer id="footer" class="top-space"><div class="footer1"><div class="container"><div class="row"><div class="col-md-3 widget"><h3 class="widget-title">Follow us</h3><div class="widget-body"><p class="follow-me-icons">
+<a href="">
+	<i class="fa fa-linkedin fa-2"></i>
+</a></p><p class="membre">
+<a href="https://www.linkedin.com/in/thomas-guerin-074433146/" target="_blank">Toto</a>
+<a href="https://www.linkedin.com/in/baptiste-guillon-138054107/" target="_blank">Baba</a>
+<a href="https://www.linkedin.com/in/malo-ford-a0b32a1b0/" target="_blank">Malo</a></p></div></div></div><!-- /row of widgets --></div></div></div><!-- /row of widgets --></div></div> </footer> <script src="{{ asset('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')}}"></script> <script src="{{ asset('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js')}}"></script> <script src="{{ asset('assets/js/headroom.min.js')}}"></script> <script src="{{ asset('assets/js/jQuery.headroom.min.js')}}"></script> <script src="{{ asset('assets/js/template.js')}}"></script></body></html>

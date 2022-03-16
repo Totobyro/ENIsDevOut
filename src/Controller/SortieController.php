@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\AnnulerSortieType;
+use App\Form\NouvelleSortieType;
 use App\Form\SortieType;
+use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
@@ -16,23 +18,62 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @Route("profile/sortie") 
- */
+
 class SortieController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_sortie_index", methods={"GET"})
-     */
-    public function index(SortieRepository $sortieRepository): Response
-    {
-        return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll()
-        ]);
-    }
 
     /**
-     * @Route("/{id}", name="afficher_sortie")
+     * @Route("/profile/creersortie/", name="creersortie")
+     * 
+     */
+    public function creerSortie(Request $req, EntityManagerInterface $em, EtatRepository $repoEtat, UserInterface $user, CampusRepository $repoCampus): Response
+    {
+        $sortie = new Sortie();
+        $sortie->addParticipant($user);
+        $form = $this->createForm(NouvelleSortieType::class, $sortie);
+
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('save')->isClicked()) {
+
+                // set etat -> Sortie crée (Enregistrée)
+                $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
+                //set l'id d'oragnisateur à l'id du current
+                $sortie->setOrganisateur($user);
+                //set l'id du campus à celui du User
+                $sortie->setCampus($repoCampus->find($user->getCampus()->getId()));
+
+                $em->persist($sortie);
+                $em->flush();
+
+                return $this->redirectToRoute('home');
+            } else {
+                if ($form->get('publish')->isClicked()) {
+                    // set etat -> Sortie crée (Publiée)
+                    $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
+                    //set l'id d'oragnisateur à l'id du current
+                    $sortie->setOrganisateur($user);
+                    //set l'id du campus à celui du User
+                    $sortie->setCampus($repoCampus->find($user->getCampus()->getId()));
+
+                    $em->persist($sortie);
+                    $em->flush();
+
+                    return $this->redirectToRoute('home');
+                }
+            }
+        }
+        return $this->render(
+            'sortie/creersortie.html.twig',
+            ['formulaire' => $form->createView(),]
+        );
+    }
+
+
+    /**
+     * @Route("profile/sortie/{id}", name="afficher_sortie")
      */
     public function afficher_sortie(Sortie $sortie, ParticipantRepository $participantRepository): Response
     {
@@ -44,7 +85,7 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/modifier/{id}", name="modifier_sortie")
+     * @Route("profile/sortie/modifier/{id}", name="modifier_sortie")
      */
     public function modifier_sortie(Request $request, EntityManagerInterface $em, Sortie $sortie, EtatRepository $repoEtat, UserInterface $user, SortieRepository $sortieRepository): Response
     {
@@ -53,7 +94,7 @@ class SortieController extends AbstractController
 
         $form->handleRequest($request);
 
-    
+
         if ($form->get('save')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
 
             // set etat à l'id 1 -> Sortie crée (Enregistrée)
@@ -92,29 +133,7 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/new", name="app_sortie_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, SortieRepository $sortieRepository, UserInterface $user): Response
-    {
-        $sortie = new Sortie();
-        $sortie->addParticipant($user);
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sortieRepository->add($sortie);
-            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-
-        return $this->renderForm('sortie/new.html.twig', [
-            'sortie' => $sortie,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/inscrire/{id}", name="inscrire")
+     * @Route("profile/sortie/inscrire/{id}", name="inscrire")
      */
     public function inscrire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
@@ -133,11 +152,11 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/desinscrire/{id}", name="desinscrire")
+     * @Route("profile/sortie/desinscrire/{id}", name="desinscrire")
      */
     public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
-       if (new DateTime() < $sortie->getDateLimiteInscription()) {
+        if (new DateTime() < $sortie->getDateLimiteInscription()) {
             $sortie->removeParticipant($user);
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
             $em->flush();
@@ -148,7 +167,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/annulerSortie/{id}", name="annulerSortie")
+     * @Route("profile/sortie/annulerSortie/{id}", name="annulerSortie")
      */
     public function annuler_sortie(Request $request, EntityManagerInterface $em, Sortie $sortie, EtatRepository $repoEtat): Response
     {

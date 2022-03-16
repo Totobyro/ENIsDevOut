@@ -1,67 +1,76 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseMonProfilAnnuler.html.twig' %}
 
 
 {% block titre %}
-Modifier une Sortie
+	Modifier une Sortie
 {% endblock %}
 
 
 {% block body %}
 
-<div class="container col">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1> Annuler une sortie </h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <div class="label">Nom de la sortie : </div>
-            {{ sortie.nom}}
-        </div>
-    </div>
-     <div class="row">
-        <div class="col-12 text-center">
-            <div class="label">Date de la sortie : </div>
-            {{ sortie.dateLimiteInscription.format('d/m/Y') }}
-        </div>
-    </div>
-     <div class="row">
-        <div class="col-12 text-center">
-            <div class="label">Campus : </div>
-            {{ sortie.campus}}
-        </div>
-    </div>
-     <div class="row">
-        <div class="col-12 text-center">
-            <div class="label">Lieu : </div>
-            {{ sortie.lieu.nom }} {{ sortie.lieu.ville.codePostal }} {{sortie.lieu.ville.nom }}
-        </div>
-    </div>
-{{ form_start(formulaireAnnuler)}}
-     <div class="row">
-        <div class="col-12 text-center">
-            <div class="label">Motif : </div>
-           {{ form_row(formulaireAnnuler.infosSortie) }}
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1>
+					Annuler une sortie
+				</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center">
+				<div class="label">Nom de la sortie :
+				</div>
+				{{ sortie.nom}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center">
+				<div class="label">Date de la sortie :
+				</div>
+				{{ sortie.dateLimiteInscription.format('d/m/Y') }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center">
+				<div class="label">Campus :
+				</div>
+				{{ sortie.campus}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center">
+				<div class="label">Lieu :
+				</div>
+				{{ sortie.lieu.nom }}
+				{{ sortie.lieu.ville.codePostal }}
+				{{sortie.lieu.ville.nom }}
+			</div>
+		</div>
+		{{ form_start(formulaireAnnuler)}}
+		<div class="row">
+			<div class="col-12 text-center">
+				<br>
+				{{ form_row(formulaireAnnuler.infosSortie) }}
+			</div>
+		</div>
 
-    <div class="row">
-        {% for message in app.flashes('danger') %}
-            <div class="alert alert-danger">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-     
-{{ form_end(formulaireAnnuler) }}
+		<div class="row">
+			{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger">
+					{{ message }}
+				</div>
+			{% endfor %}
+		</div>
 
-		<a href="{{ path('home')}}">
-			<button class="btn btn-warning">
-				Annuler
-			</button>
-		</a>
-</div>		
+		{{ form_end(formulaireAnnuler) }}
 
+		<div>
+			<a href="{{ path('home')}}">
+				<button class="btn btn-warning">
+					Annuler
+				</button>
+			</a>
+		</div>
+	</div>
 
 {% endblock %}

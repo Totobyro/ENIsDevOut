@@ -5,7 +5,8 @@
 
 {% block stylesheets %}
 
-	<link href="{{ asset ('style.css')}}" rel="stylesheet">
+	<link href="{{ asset ('assets/css/login.css')}}" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -17,9 +18,9 @@
 
 		{% if app.user %}
 			<div class="mb-3">
-				You are logged in as
+				Vous êtes déjà connecté avec le compte :
 				{{ app.user.username }},
-				<a href="{{ path('app_logout') }}">Logout</a>
+				<a href="{{ path('home') }}">Lien pour la page Accueil</a>
 			</div>
 		{% endif %}
 
