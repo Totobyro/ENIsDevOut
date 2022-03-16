@@ -9,8 +9,8 @@
     margin-top: 50px;
     margin-left: 150px;
     }
-    #titreProfil {
-        display: flex;
-        justify-content: left;
-        margin-left: 45%;
-    }
+#titreProfil {
+    display: flex;
+    justify-content: left;
+    margin-left: 45%;
+ }

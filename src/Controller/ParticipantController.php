@@ -25,32 +25,6 @@ class ParticipantController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/modifier/{id}", name="participant_modifier")
-    //  */
-    // public function modifierParticipant(CampusRepository $repo, Request $req, EntityManagerInterface $em, Participant $p): Response
-    // {
-
-    //     $form = $this->createForm(ParticipantType::class, $p);
-    //     $form->handleRequest($req);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         if ($form["password"]->getData() == "") {
-    //             $p->setPassword($p->getPassword());
-    //         }
-    //         $em->flush();
-    //         return $this->redirectToRoute('home');
-    //     }
-
-    //     return $this->render(
-    //         'main/monProfil.html.twig',
-    //         [
-    //             'titre' => 'Mon Profil',
-    //             'participantForm' => $form->createView()
-    //         ]
-    //     );
-    // }
-
-
     /**
      * @Route("/modifier/{id}", name="participant_modifier")
      */
@@ -64,26 +38,26 @@ class ParticipantController extends AbstractController
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
 
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
+        // cette condition est nécessaire car le champ 'brochure' n'est pas obligatoire
+        // donc le fichier PDF doit être traité uniquement lorsqu'un fichier est téléchargé
             if ($brochureFile) {
                 $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
+        // ceci est nécessaire pour inclure en toute sécurité le nom du fichier dans l'URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
 
-                // Move the file to the directory where brochures are stored
+        // Déplacer le fichier dans le répertoire où sont stockées les brochures
                 try {
                     $brochureFile->move(
                         $this->getParameter('brochures_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                    // ... gérer l'exception si quelque chose se passe pendant le téléchargement du fichier
                 }
 
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
+        // met à jour la propriété 'brochureFilename' pour stocker le nom du fichier PDF
+        // au lieu de son contenu
                 $participant->setBrochureFilename($newFilename);
             }
 

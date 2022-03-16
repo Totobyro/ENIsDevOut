@@ -29,9 +29,6 @@ class Sortie
      * @ORM\Column(type="datetime")
      * @Assert\GreaterThan("today", message="La durée de la sortie doit être supérieure à la date du jour")
      * 
-     * @Assert\DateTime
-     * @var string A "d-m-Y H:i:s" formatted value
-     * 
      */
     
     private $dateHeureDebut;
@@ -44,8 +41,6 @@ class Sortie
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\Date
-     * @var string A "d-m-Y" formatted value
      */
     private $dateLimiteInscription;
 
@@ -245,12 +240,5 @@ class Sortie
         return $this;
     }
 
-    // /**
-    //  * toString
-    //  *@return string
-    //  */
-    // public function __toString()
-    // {
-    //     return $this->participants;
-    // }
+
 }

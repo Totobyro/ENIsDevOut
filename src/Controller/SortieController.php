@@ -53,11 +53,7 @@ class SortieController extends AbstractController
 
         $form->handleRequest($request);
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $sortieRepository->add($sortie);
-        //     return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        // }
-
+    
         if ($form->get('save')->isClicked() && $repoEtat->findOneBy(['libelle' => 'Crée']) && new DateTime() < $sortie->getDateHeureDebut()) {
 
             // set etat à l'id 1 -> Sortie crée (Enregistrée)
@@ -141,7 +137,7 @@ class SortieController extends AbstractController
      */
     public function desinscire(Sortie $sortie, UserInterface $user, EntityManagerInterface $em, EtatRepository $repoEtat): Response
     {
-        if (new DateTime() < $sortie->getDateLimiteInscription()) {
+       if (new DateTime() < $sortie->getDateLimiteInscription()) {
             $sortie->removeParticipant($user);
             $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
             $em->flush();

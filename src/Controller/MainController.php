@@ -35,21 +35,7 @@ class MainController extends AbstractController
 
         $sorties = $repo->findByFilters($formFiltre, $user);
 
-        // foreach ($sorties as $sort) {
-        //     $dateFin=new DateTimeImmutable();
-        //     $dateFin->createFromMutable($sort->getDateHeureDebut());
-        //     dd($sort->getDateHeureDebut());
-        //     if ($sort->getDateHeureDebut() > new DateTime() && $dateFin->add(new DateInterval('PT'.$sort->getDuree().'M')) > new DateTime()) {
-        //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Activité en cours']));
-        //     }elseif ($dateFin->add(new DateInterval('PT'.$sort->getDuree().'M')) < new DateTime() && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Annulée'])) && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Historisée']))){
-        //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Passée']));
-        //     }elseif ($sort->getDateLimiteInscription() > new DateTime() && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Ouverte'])) && ($sort->getEtat() != $repoEtat->findOneBy(['libelle' => 'Cloturée']))) {
-        //         $sort->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
-        //     }
-        //     $em->persist($sort);
-
-        // }
-        // $em->flush();
+        
         return $this->render(
             'main/home.html.twig',
             [
@@ -107,8 +93,7 @@ class MainController extends AbstractController
 
             if ($form->get('save')->isClicked()) {
 
-                // set etat à l'id 1 -> Sortie crée (Enregistrée)
-                // ->find(1) est à changé si la bdd est re-generée
+                // set etat -> Sortie crée (Enregistrée)
                 $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Crée']));
                 //set l'id d'oragnisateur à l'id du current
                 $sortie->setOrganisateur($user);
@@ -121,7 +106,7 @@ class MainController extends AbstractController
                 return $this->redirectToRoute('home');
             } else {
                 if ($form->get('publish')->isClicked()) {
-                    // set etat à l'id 2 -> Sortie crée (Publiée)
+                    // set etat -> Sortie crée (Publiée)
                     $sortie->setEtat($repoEtat->findOneBy(['libelle' => 'Ouverte']));
                     //set l'id d'oragnisateur à l'id du current
                     $sortie->setOrganisateur($user);
