@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseMonProfilAnnuler.html.twig' %}
 
 
 {% block titre %}
@@ -8,17 +8,18 @@
 
 {% block body %}
 	{% form_theme formulaire 'bootstrap_3_layout.html.twig' %}
-	<div class="container col-my">
+	<br>
+	<br>
+	<div class="container">
 		{{ form_start(formulaire)}}
 		<div class="row">
-			<div class="col-6">
-				{{ form_row(formulaire.nom) }}
+			<div class="col-6 col-mt-20">
+					{{ form_row(formulaire.nom) }}
 			</div>
 			<div class="col-6">
 				<label for="campus">Campus</label>
 			</br>
 			{{app.User.campus}}
-
 
 			{# {{ form_row(formulaire.campus) }} #}
 		</div>
@@ -65,7 +66,10 @@
 
 	{{ form_end(formulaire)}}
 
-</div>
-<a href="{{ path('home')}}">
-	<button class="btn btn-danger">Retour</button>
-</a>{% endblock %}
+		<a href="{{ path('home')}}">
+			<button class="btn btn-danger">Retour</button>
+		</a>
+	</div>
+
+{% endblock %}
+ 

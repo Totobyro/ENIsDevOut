@@ -40,6 +40,7 @@ class Sortie
 
     /**
      * @ORM\Column(type="date")
+     * 
      */
     private $dateLimiteInscription;
 
